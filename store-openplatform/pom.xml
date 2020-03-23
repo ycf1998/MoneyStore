@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.money</groupId>
+    <artifactId>store-openplatform</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <name>store-openplatform</name>
+    <description>openplatform</description>
+
+    <parent>
+        <groupId>com.money</groupId>
+        <artifactId>store</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+        <!--store安全模块-->
+        <dependency>
+            <groupId>com.money</groupId>
+            <artifactId>store-security</artifactId>
+        </dependency>
+        <!--store中MBG生成模块-->
+        <dependency>
+            <groupId>com.money</groupId>
+            <artifactId>store-mbg</artifactId>
+        </dependency>
+        <!--store中Mail生成模块-->
+        <dependency>
+            <groupId>com.money</groupId>
+            <artifactId>store-mail</artifactId>
+        </dependency>
+        <!--redis依赖配置-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+        <!-- thymeleaf -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!-- 泽鸿邮箱服务 -->
+<!--        <dependency>-->
+<!--            <groupId>top.shahow</groupId>-->
+<!--            <artifactId>mail-client</artifactId>-->
+<!--            <version>1.0.1.release</version>-->
+<!--        </dependency>-->
+
+        <!--热部署-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 指定该Main Class为全局的唯一入口 -->
+                    <mainClass>com.money.store.openplatform.StoreOpenplatformApplication</mainClass>
+                    <layout>ZIP</layout>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal><!--可以把依赖的包都打包到生成的Jar包中-->
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+<!--    <repositories>-->
+<!--        <repository>-->
+<!--            <id>github</id>-->
+<!--            <name>GitHub shahow Apache Maven Packages</name>-->
+<!--            <url>https://maven.pkg.github.com/shinak/mail-client</url>-->
+<!--        </repository>-->
+<!--    </repositories>-->
+</project>

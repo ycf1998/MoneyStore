@@ -1,0 +1,73 @@
+spring:
+    profiles:
+        active: dev # 默认开发环境
+
+    # 邮箱服务
+    mail:
+        host: smtp.qq.com # 邮箱服务器
+        username: 374648769@qq.com
+        password: pibyffylsovubjid # 授权码（得去邮箱获取）
+        properties:
+            mail:
+                smtp:
+                    auth: true # 使用
+                    starttls: # 使用 SSL 安全协议，必须配置如下
+                        enable: true
+                        required: true
+        port: 465  # 端口
+        protocol: smtps # 协议
+        default-encoding: utf-8
+        fromAlias: 麦尼 # 发件人别名
+
+    # 时间格式
+    jackson:
+        date-format: yyyy-MM-dd HH:mm:ss
+        time-zone: GMT+8
+
+# mybatis
+mybatis:
+    mapper-locations: # mapper.xml包地址
+        - classpath:dao/*.xml
+        - classpath*:com/**/mapper/*.xml
+# pageHelper分页插件
+pagehelper:
+    helperDialect: mysql # 数据库的方言
+    reasonable: true  # 启用合理化，如果pageNum < 1会查询第一页，如果pageNum > pages会查询最后一页
+
+# 自定义jwt key
+jwt:
+    tokenHeader: Authorization #JWT存储的请求头
+    secret: 2016076 #JWT加解密使用的密钥
+    expiration: 604800 #JWT的超期限时间(60*60*24)
+    tokenHead: Money  #JWT负载中拿到开头
+# 白名单
+secure:
+    ignored:
+        urls: #安全路径白名单
+            - /*.html
+            - /swagger-ui.html
+            - /swagger-resources/**
+            - /swagger/**
+            - /**/v2/api-docs
+            - /**/*.js
+            - /**/*.css
+            - /**/*.png
+            - /**/*.ico
+            - /webjars/springfox-swagger-ui/**
+            - /actuator/**
+            - /druid/**
+            - /uploads/**
+            - /sso/login
+            - /platform/**
+            - /mail/**
+
+# 自定义redis key
+redis:
+    key:
+        prefix:
+            authCode: "portal:authCode:"
+        expire:
+            authCode: 300 # 验证码超期时间s
+
+
+
