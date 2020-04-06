@@ -4,6 +4,9 @@ import com.money.store.model.UmsUser;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
+/**
+ *  整个个人类型开发者信息
+ */
 public class UmsPersonDeveloper extends UmsUser implements Serializable {
     private Long id;
 

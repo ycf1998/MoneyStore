@@ -6,8 +6,7 @@
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="ip" jdbcType="VARCHAR" property="ip" />
-    <result column="province" jdbcType="VARCHAR" property="province" />
-    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
     <result column="login_type" jdbcType="INTEGER" property="loginType" />
   </resultMap>
   <sql id="Example_Where_Clause">
@@ -69,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, user_id, create_time, ip, province, city, login_type
+    id, user_id, create_time, ip, address, login_type
   </sql>
   <select id="selectByExample" parameterType="com.money.store.model.UmsUserLoginLogExample" resultMap="BaseResultMap">
     select
@@ -103,11 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.money.store.model.UmsUserLoginLog">
     insert into ums_user_login_log (id, user_id, create_time, 
-      ip, province, city, 
-      login_type)
+      ip, address, login_type
+      )
     values (#{id,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{ip,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
-      #{loginType,jdbcType=INTEGER})
+      #{ip,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{loginType,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.money.store.model.UmsUserLoginLog">
     insert into ums_user_login_log
@@ -124,11 +123,8 @@
       <if test="ip != null">
         ip,
       </if>
-      <if test="province != null">
-        province,
-      </if>
-      <if test="city != null">
-        city,
+      <if test="address != null">
+        address,
       </if>
       <if test="loginType != null">
         login_type,
@@ -147,11 +143,8 @@
       <if test="ip != null">
         #{ip,jdbcType=VARCHAR},
       </if>
-      <if test="province != null">
-        #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null">
-        #{city,jdbcType=VARCHAR},
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
       </if>
       <if test="loginType != null">
         #{loginType,jdbcType=INTEGER},
@@ -179,11 +172,8 @@
       <if test="record.ip != null">
         ip = #{record.ip,jdbcType=VARCHAR},
       </if>
-      <if test="record.province != null">
-        province = #{record.province,jdbcType=VARCHAR},
-      </if>
-      <if test="record.city != null">
-        city = #{record.city,jdbcType=VARCHAR},
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
       </if>
       <if test="record.loginType != null">
         login_type = #{record.loginType,jdbcType=INTEGER},
@@ -199,8 +189,7 @@
       user_id = #{record.userId,jdbcType=BIGINT},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
       ip = #{record.ip,jdbcType=VARCHAR},
-      province = #{record.province,jdbcType=VARCHAR},
-      city = #{record.city,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
       login_type = #{record.loginType,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -218,11 +207,8 @@
       <if test="ip != null">
         ip = #{ip,jdbcType=VARCHAR},
       </if>
-      <if test="province != null">
-        province = #{province,jdbcType=VARCHAR},
-      </if>
-      <if test="city != null">
-        city = #{city,jdbcType=VARCHAR},
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
       </if>
       <if test="loginType != null">
         login_type = #{loginType,jdbcType=INTEGER},
@@ -235,8 +221,7 @@
     set user_id = #{userId,jdbcType=BIGINT},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       ip = #{ip,jdbcType=VARCHAR},
-      province = #{province,jdbcType=VARCHAR},
-      city = #{city,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
       login_type = #{loginType,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>

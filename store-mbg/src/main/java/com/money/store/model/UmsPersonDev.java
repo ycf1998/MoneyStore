@@ -1,13 +1,9 @@
-package com.money.store.openplatform.domain;
+package com.money.store.model;
 
-import com.money.store.model.UmsUser;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
-/**
- *  整个公司类型开发者信息
- */
-public class UmsCompanyDeveloper extends UmsUser implements Serializable {
+public class UmsPersonDev implements Serializable {
     private Long id;
 
     private Long userId;
@@ -18,14 +14,14 @@ public class UmsCompanyDeveloper extends UmsUser implements Serializable {
     @ApiModelProperty(value = "专用APPKEY")
     private String appKey;
 
-    @ApiModelProperty(value = "公司全称")
-    private String companyName;
+    @ApiModelProperty(value = "真实姓名")
+    private String realName;
 
-    @ApiModelProperty(value = "营业执照注册号")
-    private String businessLicenseRegNumber;
+    @ApiModelProperty(value = "18位身份证")
+    private String idCard;
 
-    @ApiModelProperty(value = "营业执照照片")
-    private String businessLicense;
+    @ApiModelProperty(value = "手持身份证照片")
+    private String idCardPic;
 
     @ApiModelProperty(value = "持卡人")
     private String cardholder;
@@ -38,6 +34,13 @@ public class UmsCompanyDeveloper extends UmsUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getUserId() {
         return userId;
@@ -63,28 +66,28 @@ public class UmsCompanyDeveloper extends UmsUser implements Serializable {
         this.appKey = appKey == null ? null : appKey.trim();
     }
 
-    public String getCompanyName() {
-        return companyName;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName == null ? null : companyName.trim();
+    public void setRealName(String realName) {
+        this.realName = realName == null ? null : realName.trim();
     }
 
-    public String getBusinessLicenseRegNumber() {
-        return businessLicenseRegNumber;
+    public String getIdCard() {
+        return idCard;
     }
 
-    public void setBusinessLicenseRegNumber(String businessLicenseRegNumber) {
-        this.businessLicenseRegNumber = businessLicenseRegNumber == null ? null : businessLicenseRegNumber.trim();
+    public void setIdCard(String idCard) {
+        this.idCard = idCard == null ? null : idCard.trim();
     }
 
-    public String getBusinessLicense() {
-        return businessLicense;
+    public String getIdCardPic() {
+        return idCardPic;
     }
 
-    public void setBusinessLicense(String businessLicense) {
-        this.businessLicense = businessLicense == null ? null : businessLicense.trim();
+    public void setIdCardPic(String idCardPic) {
+        this.idCardPic = idCardPic == null ? null : idCardPic.trim();
     }
 
     public String getCardholder() {
@@ -121,9 +124,9 @@ public class UmsCompanyDeveloper extends UmsUser implements Serializable {
         sb.append(", userId=").append(userId);
         sb.append(", appId=").append(appId);
         sb.append(", appKey=").append(appKey);
-        sb.append(", companyName=").append(companyName);
-        sb.append(", businessLicenseRegNumber=").append(businessLicenseRegNumber);
-        sb.append(", businessLicense=").append(businessLicense);
+        sb.append(", realName=").append(realName);
+        sb.append(", idCard=").append(idCard);
+        sb.append(", idCardPic=").append(idCardPic);
         sb.append(", cardholder=").append(cardholder);
         sb.append(", bankCardType=").append(bankCardType);
         sb.append(", bankCardNumber=").append(bankCardNumber);

@@ -1,7 +1,7 @@
 package com.money.store.openplatform.config;
 
-import io.swagger.annotations.Api;
 
+import org.springframework.context.annotation.Profile;
 import springfox.documentation.service.Contact;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +28,7 @@ import java.util.List;
  */
 @Configuration
 @EnableSwagger2
+@Profile({"dev", "test"})
 public class Swagger2Config {
 
     @Bean

@@ -1,13 +1,9 @@
-package com.money.store.openplatform.domain;
+package com.money.store.model;
 
-import com.money.store.model.UmsUser;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
-/**
- *  整个公司类型开发者信息
- */
-public class UmsCompanyDeveloper extends UmsUser implements Serializable {
+public class UmsCompanyDev implements Serializable {
     private Long id;
 
     private Long userId;
@@ -38,6 +34,13 @@ public class UmsCompanyDeveloper extends UmsUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public Long getUserId() {
         return userId;

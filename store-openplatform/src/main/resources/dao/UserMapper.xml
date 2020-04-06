@@ -28,8 +28,8 @@
     birthday, province, city, address, info, attend_count, fans_count, activation, type,
     upgrade_time
   </sql>
-    <insert id="insertAndPkToUserId" parameterType="com.money.store.model.UmsUser"
-            keyProperty="userId" useGeneratedKeys="true" keyColumn="id">
+    <insert id="insertAndPkToId" parameterType="com.money.store.model.UmsUser"
+            keyProperty="id" useGeneratedKeys="true" keyColumn="id">
         insert into ums_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -43,6 +43,9 @@
             </if>
             <if test="nickname != null">
                 nickname,
+            </if>
+            <if test="contact != null">
+                contact,
             </if>
             <if test="phone != null">
                 phone,
@@ -105,6 +108,9 @@
             </if>
             <if test="nickname != null">
                 #{nickname,jdbcType=VARCHAR},
+            </if>
+            <if test="contact != null">
+                #{contact,jdbcType=VARCHAR},
             </if>
             <if test="phone != null">
                 #{phone,jdbcType=VARCHAR},

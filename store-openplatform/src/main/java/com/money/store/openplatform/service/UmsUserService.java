@@ -1,6 +1,11 @@
 package com.money.store.openplatform.service;
 
+import com.money.store.model.UmsCompanyDev;
+import com.money.store.model.UmsPersonDev;
 import com.money.store.model.UmsUser;
+import com.money.store.openplatform.domain.UmsCompanyDeveloper;
+import com.money.store.openplatform.dto.UpdateProfileParam;
+import com.money.store.openplatform.dto.UpdateUserPasswordParam;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
@@ -34,12 +39,49 @@ public interface UmsUserService {
     String login(String username, String password);
 
     /**
-     * 重置密码
-     * @param id
-     * @param newPassword
+     * 获得个人类型开发者资质信息
+     * @param username
      * @return
      */
-    boolean resetPassword(Long id, String newPassword);
+    UmsPersonDev getPersonDevProFile(String username);
+
+    /**
+     * 获得公司类型开发者资质信息
+     * @param username
+     * @return
+     */
+    UmsCompanyDev getCompanyDevProFile(String username);
+
+    /**
+     * 用户修改个人基本资料
+     * @param param
+     * @return
+     */
+    int update(UpdateProfileParam param);
+
+    /**
+     * 用户修改密码
+     * @param param
+     * @return
+     */
+    int updatePassword(UpdateUserPasswordParam param);
+
+    /**
+     * 更新头像
+     * @param username
+     * @param newIcon
+     * @return
+     */
+    int updateAvatar(String username, String newIcon);
+
+    int updateEmail(String email, String username, String password);
+
+    /**
+     * 刷新token
+     * @param oldToken
+     * @return
+     */
+    String refreshToken(String oldToken);
 
     /**
      * 自定义键值对放入redis
@@ -57,17 +99,12 @@ public interface UmsUserService {
      */
     String getAuthValue(String key);
 
-
-
-
-
-
-
-
     /**
      * 获取用户信息
      * @param username
      * @return
      */
     UserDetails loadUserByUsername(String username);
+
+
 }

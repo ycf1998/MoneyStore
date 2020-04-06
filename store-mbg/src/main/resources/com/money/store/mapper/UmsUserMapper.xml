@@ -6,6 +6,7 @@
     <result column="username" jdbcType="VARCHAR" property="username" />
     <result column="password" jdbcType="VARCHAR" property="password" />
     <result column="nickname" jdbcType="VARCHAR" property="nickname" />
+    <result column="contact" jdbcType="VARCHAR" property="contact" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -82,9 +83,9 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, password, nickname, phone, email, status, create_time, icon, gender, 
-    birthday, province, city, address, info, attend_count, fans_count, activation, type, 
-    upgrade_time
+    id, username, password, nickname, contact, phone, email, status, create_time, icon, 
+    gender, birthday, province, city, address, info, attend_count, fans_count, activation, 
+    type, upgrade_time
   </sql>
   <select id="selectByExample" parameterType="com.money.store.model.UmsUserExample" resultMap="BaseResultMap">
     select
@@ -118,19 +119,21 @@
   </delete>
   <insert id="insert" parameterType="com.money.store.model.UmsUser">
     insert into ums_user (id, username, password, 
-      nickname, phone, email, 
-      status, create_time, icon, 
-      gender, birthday, province, 
-      city, address, info, 
-      attend_count, fans_count, activation, 
-      type, upgrade_time)
+      nickname, contact, phone, 
+      email, status, create_time, 
+      icon, gender, birthday, 
+      province, city, address, 
+      info, attend_count, fans_count, 
+      activation, type, upgrade_time
+      )
     values (#{id,jdbcType=BIGINT}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{nickname,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{icon,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=INTEGER}, #{birthday,jdbcType=DATE}, #{province,jdbcType=VARCHAR}, 
-      #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{info,jdbcType=VARCHAR}, 
-      #{attendCount,jdbcType=INTEGER}, #{fansCount,jdbcType=INTEGER}, #{activation,jdbcType=INTEGER}, 
-      #{type,jdbcType=INTEGER}, #{upgradeTime,jdbcType=TIMESTAMP})
+      #{nickname,jdbcType=VARCHAR}, #{contact,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{icon,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{birthday,jdbcType=DATE}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{info,jdbcType=VARCHAR}, #{attendCount,jdbcType=INTEGER}, #{fansCount,jdbcType=INTEGER}, 
+      #{activation,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{upgradeTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.money.store.model.UmsUser">
     insert into ums_user
@@ -146,6 +149,9 @@
       </if>
       <if test="nickname != null">
         nickname,
+      </if>
+      <if test="contact != null">
+        contact,
       </if>
       <if test="phone != null">
         phone,
@@ -208,6 +214,9 @@
       </if>
       <if test="nickname != null">
         #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        #{contact,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
@@ -280,6 +289,9 @@
       <if test="record.nickname != null">
         nickname = #{record.nickname,jdbcType=VARCHAR},
       </if>
+      <if test="record.contact != null">
+        contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
       <if test="record.phone != null">
         phone = #{record.phone,jdbcType=VARCHAR},
       </if>
@@ -339,6 +351,7 @@
       username = #{record.username,jdbcType=VARCHAR},
       password = #{record.password,jdbcType=VARCHAR},
       nickname = #{record.nickname,jdbcType=VARCHAR},
+      contact = #{record.contact,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
       email = #{record.email,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
@@ -370,6 +383,9 @@
       </if>
       <if test="nickname != null">
         nickname = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="contact != null">
+        contact = #{contact,jdbcType=VARCHAR},
       </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
@@ -427,6 +443,7 @@
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       nickname = #{nickname,jdbcType=VARCHAR},
+      contact = #{contact,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},

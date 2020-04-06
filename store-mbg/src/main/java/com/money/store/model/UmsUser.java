@@ -16,6 +16,9 @@ public class UmsUser implements Serializable {
     @ApiModelProperty(value = "昵称")
     private String nickname;
 
+    @ApiModelProperty(value = "联系人")
+    private String contact;
+
     @ApiModelProperty(value = "手机号")
     private String phone;
 
@@ -96,6 +99,14 @@ public class UmsUser implements Serializable {
 
     public void setNickname(String nickname) {
         this.nickname = nickname == null ? null : nickname.trim();
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact == null ? null : contact.trim();
     }
 
     public String getPhone() {
@@ -236,6 +247,7 @@ public class UmsUser implements Serializable {
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", nickname=").append(nickname);
+        sb.append(", contact=").append(contact);
         sb.append(", phone=").append(phone);
         sb.append(", email=").append(email);
         sb.append(", status=").append(status);

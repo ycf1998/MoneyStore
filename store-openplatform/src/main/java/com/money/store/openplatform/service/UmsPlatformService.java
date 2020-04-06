@@ -1,7 +1,5 @@
 package com.money.store.openplatform.service;
 
-import com.money.store.openplatform.domain.UmsCompanyDeveloper;
-import com.money.store.openplatform.domain.UmsPersonDeveloper;
 import com.money.store.model.UmsUser;
 import com.money.store.openplatform.dto.UmsCompanyDevParam;
 import com.money.store.openplatform.dto.UmsPersonDevParam;
@@ -29,7 +27,7 @@ public interface UmsPlatformService {
      * @param umsPersonDevParam
      * @return
      */
-    UmsPersonDeveloper personDevRegister(UmsPersonDevParam umsPersonDevParam);
+    UmsUser personDevRegister(UmsPersonDevParam umsPersonDevParam);
 
     /**
      * 商店用户升级个人开发者
@@ -37,7 +35,7 @@ public interface UmsPlatformService {
      * @param umsUpgradePersonDevParam
      * @return
      */
-    UmsPersonDeveloper upgradePersonDev(UmsUpgradePersonDevParam umsUpgradePersonDevParam);
+    UmsUser upgradePersonDev(UmsUpgradePersonDevParam umsUpgradePersonDevParam);
 
     /**
      * 注册功能 公司类型开发者
@@ -45,7 +43,7 @@ public interface UmsPlatformService {
      * @param umsCompanyDevParam
      * @return
      */
-    UmsCompanyDeveloper companyDevRegister(UmsCompanyDevParam umsCompanyDevParam);
+    UmsUser companyDevRegister(UmsCompanyDevParam umsCompanyDevParam);
 
     /**
      * 激活开发者资质
@@ -70,5 +68,13 @@ public interface UmsPlatformService {
      * @param email
      * @return
      */
-    boolean changeEmail(String username, String password, String email);
+    int changeEmail(String username, String password, String email);
+
+    /**
+     * 重置密码
+     * @param id
+     * @param newPassword
+     * @return
+     */
+    int resetPassword(Long id, String newPassword);
 }

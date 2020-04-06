@@ -2,8 +2,9 @@ package com.money.store.openplatform.util;
 
 
 import com.money.store.common.constant.UserTypeEnum;
+import com.money.store.openplatform.config.MoneyConfig;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -15,11 +16,12 @@ import java.io.IOException;
  *@author: Money
  *@create: 2020/01/30 15:07
  */
-@Component
 public class UploadUtil {
 
-    @Value("${upload.BASE_PATH}")
-    public String UPLOAD_BASE_PATH;
+    /**
+     *  文件上传基础路径
+     */
+    private final String UPLOAD_BASE_PATH = MoneyConfig.getBasePath();
 
     /**
      * 上传头像
@@ -77,7 +79,7 @@ public class UploadUtil {
             }catch(IOException e){
                 return null;
             }
-            return newFileName;
+            return dirPath + "/" + newFileName;
         }
         return null;
     }

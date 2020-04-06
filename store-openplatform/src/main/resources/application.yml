@@ -21,7 +21,7 @@ spring:
 
     # 时间格式
     jackson:
-        date-format: yyyy-MM-dd HH:mm:ss
+        date-format: 'yyyy-MM-dd HH:mm:ss'
         time-zone: GMT+8
 
 # mybatis
@@ -29,6 +29,8 @@ mybatis:
     mapper-locations: # mapper.xml包地址
         - classpath:dao/*.xml
         - classpath*:com/**/mapper/*.xml
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启sql语句日志打印
 # pageHelper分页插件
 pagehelper:
     helperDialect: mysql # 数据库的方言
@@ -44,7 +46,6 @@ jwt:
 secure:
     ignored:
         urls: #安全路径白名单
-            - /*.html
             - /swagger-ui.html
             - /swagger-resources/**
             - /swagger/**
@@ -64,10 +65,9 @@ secure:
 # 自定义redis key
 redis:
     key:
-        prefix:
-            authCode: "portal:authCode:"
-        expire:
-            authCode: 300 # 验证码超期时间s
-
-
+        authCode: "store:authCode"
+        user: "ums:user"
+    expire:
+        authCode: 90 # 验证码超期时间s
+        common: 86400 # 24小时
 

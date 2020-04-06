@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50717
 File Encoding         : 65001
 
-Date: 2020-03-23 19:48:36
+Date: 2020-03-30 21:50:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -354,7 +354,6 @@ CREATE TABLE `ums_company_dev` (
   `company_name` varchar(32) DEFAULT NULL COMMENT '公司全称',
   `business_license_reg_number` varchar(32) DEFAULT NULL COMMENT '营业执照注册号',
   `business_license` varchar(255) DEFAULT NULL COMMENT '营业执照照片',
-  `contact` varchar(32) DEFAULT NULL COMMENT '联系人',
   `cardholder` varchar(32) DEFAULT NULL COMMENT '持卡人',
   `bank_card_type` varchar(32) DEFAULT NULL COMMENT '银行卡类型',
   `bank_card_number` varchar(32) DEFAULT NULL COMMENT '银行卡号',
@@ -364,7 +363,7 @@ CREATE TABLE `ums_company_dev` (
 -- ----------------------------
 -- Records of ums_company_dev
 -- ----------------------------
-INSERT INTO `ums_company_dev` VALUES ('1', '2', '41418932', '5e650f0f1b2a8334f503f629', '深圳市腾讯计算机系统有限公司', '440301103448669', '1583681295647.png', '小马', null, null, null);
+INSERT INTO `ums_company_dev` VALUES ('1', '3', '79939087', '5e81a5a01b2a6085f1b96931', '深圳市腾讯计算机系统有限公司', '440301103448669', 'businessLicense/1585554848732.jpg', null, null, null);
 
 -- ----------------------------
 -- Table structure for `ums_permission`
@@ -408,13 +407,14 @@ CREATE TABLE `ums_person_dev` (
   `bank_card_type` varchar(32) DEFAULT NULL COMMENT '银行卡类型',
   `bank_card_number` varchar(32) DEFAULT NULL COMMENT '银行卡号',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COMMENT='个人类型开发者';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='个人类型开发者';
 
 -- ----------------------------
 -- Records of ums_person_dev
 -- ----------------------------
-INSERT INTO `ums_person_dev` VALUES ('1', '1', '66174279', '5e650a7a1b2a8334f503f628', '麦尼', '666666199807091314', '1583680122073.jpg', null, null, null);
-INSERT INTO `ums_person_dev` VALUES ('2', '3', '45167989', '5e6855971b2ac3e54cffafa3', '麦尼', '666666199807091314', '1583895958719.jpg', null, null, null);
+INSERT INTO `ums_person_dev` VALUES ('1', '1', '81671402', '5e819d281b2a6085f1b9692e', '麦尼', '350520199807091314', 'idCard/1585552679779.jpg', null, null, null);
+INSERT INTO `ums_person_dev` VALUES ('2', '2', '88811190', '5e81a36d1b2a6085f1b9692f', '麦尼', '666666199807091314', 'idCard/1585554285442.jpg', null, null, null);
+INSERT INTO `ums_person_dev` VALUES ('3', '2', '58595832', '5e81a4211b2a6085f1b96930', '麦尼', '666666199807091314', 'idCard/1585554465449.jpg', null, null, null);
 
 -- ----------------------------
 -- Table structure for `ums_role`
@@ -473,6 +473,7 @@ CREATE TABLE `ums_user` (
   `username` varchar(64) DEFAULT NULL COMMENT '账号',
   `password` varchar(64) DEFAULT NULL COMMENT '密码',
   `nickname` varchar(64) DEFAULT NULL COMMENT '昵称',
+  `contact` varchar(64) DEFAULT NULL COMMENT '联系人',
   `phone` varchar(64) DEFAULT NULL COMMENT '手机号',
   `email` varchar(64) DEFAULT NULL COMMENT '邮箱',
   `status` int(1) DEFAULT NULL COMMENT '帐号启用状态:0->禁用；1->启用；',
@@ -495,9 +496,9 @@ CREATE TABLE `ums_user` (
 -- ----------------------------
 -- Records of ums_user
 -- ----------------------------
-INSERT INTO `ums_user` VALUES ('1', 'p374648761', '$2a$10$TFaCrJB9/jpsBBPw9YDOaO2nJy6/HPKRKsj3dtQIWuVq.3o3vyGAG', 'Money Y', '13345678910', '374648761@qq.com', '1', '2020-03-08 23:08:42', 'icon/1583680122023.jpg', '1', '1998-07-09', '北京市', '朝阳区', '北京市朝阳区一环内大户人家', '我就是开发者，是要怎样！', '0', '0', '1', '1', null);
-INSERT INTO `ums_user` VALUES ('2', 'c374648762', '$2a$10$X4c4sNsJKJT7Bd5rFahlEO6TzcCLzSBqRwhsqulSormh2zTCu8u16', '深圳市腾讯计算机系统有限公司', '18120803975', '374648762@qq.com', '1', '2020-03-08 23:28:16', 'company.jpg', '0', '2020-03-08', '广东省', '深圳市', '深圳市南山区高新区高新南一路飞亚达大厦5-10楼', '加入我们！', '0', '0', '1', '2', null);
-INSERT INTO `ums_user` VALUES ('3', '13345678911', '$2a$10$RIbJHL42UCetIB1V5EZw5.j8Vh2HS9XzxWx23ft9PGM1P3vOjM3by', 'Money', '13345678910', '374648769@qq.com', '1', '2020-03-11 10:52:57', 'person.jpg', '1', '1998-07-09', '天津市', '河北区', '北京市朝阳区一环内大户人家', '我就是开发者，是要怎样！', '0', '0', '0', '1', '2020-03-11 11:05:59');
+INSERT INTO `ums_user` VALUES ('1', 'p123456', '$2a$10$QwMJhJgpBzb17HbXdeg6/uhuntQBofEYCZxGq8ELrawDk9lxdVD/q', 'Money Y', null, '18120803970', '374648761@qq.com', '1', '2020-03-30 15:18:00', 'icon/1585552679744.jpg', '1', '1998-07-09', '福建省', '泉州市', '福建省泉州市的一户人家', '我就是开发者，怎样！', '0', '0', '0', '1', null);
+INSERT INTO `ums_user` VALUES ('2', '13345678910', '$2a$10$NwzreX5sQkVXB5JlL/1rQ.wlDlwC4Rbrq1FAUUUPUhmF1dx/JBqTW', 'Money', null, '13345678910', '374648762@qq.com', '1', '2020-03-30 15:44:45', 'person.jpg', '1', '1998-07-09', '北京市', '朝阳区', '北京市朝阳区一环内大户人家', '我就是开发者，是要怎样！', '0', '0', '1', '1', '2020-03-30 15:47:45');
+INSERT INTO `ums_user` VALUES ('3', 'c123456', '$2a$10$CTJ3SXPP/jbzYeufdLI8WO/CnWKowb6YBxlzLFW0uwFwMcg1CzHEa', '深圳市腾讯计算机系统有限公司', '小马', '18120803971', '374648763@qq.com', '1', '2020-03-30 15:54:09', 'company.jpg', '0', '2020-03-30', '广东省', '深圳市', '深圳市南山区高新区高新南一路飞亚达大厦5-10楼', '加入我们！', '0', '0', '0', '2', null);
 
 -- ----------------------------
 -- Table structure for `ums_user_login_log`
@@ -508,15 +509,17 @@ CREATE TABLE `ums_user_login_log` (
   `user_id` bigint(20) DEFAULT NULL,
   `create_time` datetime DEFAULT NULL,
   `ip` varchar(64) DEFAULT NULL,
-  `province` varchar(64) DEFAULT NULL,
-  `city` varchar(64) DEFAULT NULL,
+  `address` varchar(64) DEFAULT NULL COMMENT '登录地址',
   `login_type` int(1) DEFAULT NULL COMMENT '登录类型：0->PC；1->android;2->ios;3->小程序',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户登录日志';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户登录日志';
 
 -- ----------------------------
 -- Records of ums_user_login_log
 -- ----------------------------
+INSERT INTO `ums_user_login_log` VALUES ('1', '3', '2020-03-30 15:55:04', '127.0.0.1', '内网IP', null);
+INSERT INTO `ums_user_login_log` VALUES ('2', '1', '2020-03-30 16:03:36', '127.0.0.1', '内网IP', null);
+INSERT INTO `ums_user_login_log` VALUES ('3', '1', '2020-03-30 16:06:37', '127.0.0.1', '内网IP', null);
 
 -- ----------------------------
 -- Table structure for `ums_user_statistics_info`

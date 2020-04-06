@@ -13,9 +13,8 @@ public class UmsUserLoginLog implements Serializable {
 
     private String ip;
 
-    private String province;
-
-    private String city;
+    @ApiModelProperty(value = "登录地址")
+    private String address;
 
     @ApiModelProperty(value = "登录类型：0->PC；1->android;2->ios;3->小程序")
     private Integer loginType;
@@ -54,20 +53,12 @@ public class UmsUserLoginLog implements Serializable {
         this.ip = ip == null ? null : ip.trim();
     }
 
-    public String getProvince() {
-        return province;
+    public String getAddress() {
+        return address;
     }
 
-    public void setProvince(String province) {
-        this.province = province == null ? null : province.trim();
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city == null ? null : city.trim();
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 
     public Integer getLoginType() {
@@ -88,8 +79,7 @@ public class UmsUserLoginLog implements Serializable {
         sb.append(", userId=").append(userId);
         sb.append(", createTime=").append(createTime);
         sb.append(", ip=").append(ip);
-        sb.append(", province=").append(province);
-        sb.append(", city=").append(city);
+        sb.append(", address=").append(address);
         sb.append(", loginType=").append(loginType);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

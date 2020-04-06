@@ -1,5 +1,10 @@
 package com.money.store.openplatform.controller;
 
+import cn.hutool.json.JSON;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import com.money.store.common.api.CommonResult;
 import com.money.store.model.UmsUser;
 import com.money.store.openplatform.dto.UmsUserLoginParam;
@@ -12,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,19 +29,21 @@ import java.util.Map;
  * @create: 2020/03/01 16:13
  */
 @Controller
-@Api(value="用户注册controller", tags="用户登录管理")
+@Api(value="用户登录信息管理", tags="用户登录管理")
 @RequestMapping("/sso")
-public class UmsDeveloperController {
+public class UmsUserController {
 
     @Autowired
     private UmsUserService umsUserService;
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+    @Value("${jwt.tokenHeader}")
+    private String tokenHeader;
 
     @ApiOperation(value = "获取当前登录用户信息")
     @RequestMapping(value = "/info", method = RequestMethod.GET)
     @ResponseBody
-    public CommonResult getAdminInfo(Principal principal) {
+    public CommonResult getUserInfo(Principal principal) {
         String username = principal.getName();
         UmsUser umsUser = umsUserService.getUserByUsername(username);
         Map<String, Object> data = new HashMap<>();
@@ -60,10 +68,27 @@ public class UmsDeveloperController {
         return CommonResult.success(tokenMap);
     }
 
+    @ApiOperation(value = "刷新token")
+    @RequestMapping(value = "/refreshToken", method = RequestMethod.GET)
+    @ResponseBody
+    public CommonResult refreshToken(HttpServletRequest request) {
+        String token = request.getHeader(tokenHeader);
+        String refreshToken = umsUserService.refreshToken(token);
+        if (refreshToken == null) {
+            return CommonResult.failed("token已经过期！");
+        }
+        Map<String, String> tokenMap = new HashMap<>();
+        tokenMap.put("token", refreshToken);
+        tokenMap.put("tokenHead", tokenHead);
+        return CommonResult.success(tokenMap);
+    }
+
     @ApiOperation(value = "登出功能")
     @PostMapping(value = "/logout")
     @ResponseBody
     public CommonResult logout() {
         return CommonResult.success(null);
     }
+
+
 }

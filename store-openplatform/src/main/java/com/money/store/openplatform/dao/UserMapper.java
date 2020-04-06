@@ -15,12 +15,12 @@ import org.springframework.data.repository.query.Param;
 public interface UserMapper {
 
     /**
-     * 添加用户，并把自动生成的id填入userId
+     * 添加用户，并把自动生成的id填入id
      *
      * @param record
      * @return
      */
-    int insertAndPkToUserId(UmsUser record);
+    int insertAndPkToId(UmsUser record);
 
     /**
      * 更新密码

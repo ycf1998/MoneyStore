@@ -37,8 +37,6 @@ public class UmsPlatFormController {
     private UmsUserService umsUserService;
     @Autowired
     private UmsPlatformService platformService;
-    @Autowired
-    private UploadUtil uploadUtil;
 
     @ApiOperation(value = "激活开发者资质")
     @GetMapping(value = "/activeDev/{token}")
@@ -58,7 +56,7 @@ public class UmsPlatFormController {
     @ResponseBody
     public CommonResult checkUsername(@PathVariable("username") String username) {
         if (umsUserService.getUserByUsername(username) == null) {
-            return CommonResult.success(0, "可以使用！");
+            return CommonResult.success(username);
         } else {
             return CommonResult.failed(" 账号已被注册！");
         }
@@ -69,7 +67,7 @@ public class UmsPlatFormController {
     @ResponseBody
     public CommonResult checkEmail(String email) {
         if (umsUserService.getUserByEmail(email) == null) {
-            return CommonResult.success(0, "可以使用！");
+            return CommonResult.success(email);
         } else {
             return CommonResult.failed("邮箱已被注册！");
         }
@@ -80,7 +78,7 @@ public class UmsPlatFormController {
     @ResponseBody
     public CommonResult checkVerify(@PathVariable("username") String username) {
         if (platformService.isActivationDev(username)) {
-            return CommonResult.success("验证成功！");
+            return CommonResult.success(null, "已激活！");
         } else {
             return CommonResult.failed("还未验证！");
         }
@@ -109,13 +107,14 @@ public class UmsPlatFormController {
     @ApiOperation(value = "个人类型开发者注册")
     @PostMapping(value = "/register/person")
     @ResponseBody
-    public CommonResult<UmsPersonDeveloper> register(@Valid UmsPersonDevParam umsPersonDevParams,
+    public CommonResult<UmsUser> register(@Valid UmsPersonDevParam umsPersonDevParams,
                                                      @RequestParam(required=false) MultipartFile iconFile,
                                                      @RequestParam(required=false) MultipartFile idCardPicFile,
                                                      BindingResult result) {
         if (result.hasErrors()) {
             return CommonResult.failed(result.getAllErrors().get(0).getDefaultMessage());
         }
+        UploadUtil uploadUtil = new UploadUtil();
         String icon = uploadUtil.uploadIcon(iconFile);
         String idCardPic = uploadUtil.uploadDocumentation(UserTypeEnum.PERSON_DEV.getId(), idCardPicFile);
         if (icon == null) {
@@ -124,11 +123,11 @@ public class UmsPlatFormController {
         if (idCardPic != null) {
             umsPersonDevParams.setIcon(icon);
             umsPersonDevParams.setIdCardPic(idCardPic);
-            UmsPersonDeveloper umsPersonDeveloper = platformService.personDevRegister(umsPersonDevParams);
-            if (umsPersonDeveloper == null) {
+            UmsUser umsUser = platformService.personDevRegister(umsPersonDevParams);
+            if (umsUser == null) {
                 return CommonResult.failed("不好意思，注册失败！系统繁忙，请稍后再试！");
             }
-            return CommonResult.success(umsPersonDeveloper);
+            return CommonResult.success(umsUser);
         } else {
             return CommonResult.failed("手持身份证件照上传失败");
         }
@@ -137,23 +136,24 @@ public class UmsPlatFormController {
     @ApiOperation(value = "商店用户升级个人开发者")
     @PostMapping(value = "/register/upgradePersonDev")
     @ResponseBody
-    public CommonResult<UmsPersonDeveloper> upgradePersonDev(@Valid UmsUpgradePersonDevParam umsUpgradePersonDevParam,
+    public CommonResult<UmsUser> upgradePersonDev(@Valid UmsUpgradePersonDevParam umsUpgradePersonDevParam,
                                                              @RequestParam(required=false) MultipartFile iconFile,
                                                              @RequestParam(required=false) MultipartFile idCardPicFile,
                                                              BindingResult result) {
         if (result.hasErrors()) {
             return CommonResult.failed(result.getAllErrors().get(0).getDefaultMessage());
         }
+        UploadUtil uploadUtil = new UploadUtil();
         String icon = uploadUtil.uploadIcon(iconFile);
         String idCardPic = uploadUtil.uploadDocumentation(UserTypeEnum.PERSON_DEV.getId(), idCardPicFile);
         if (idCardPic != null) {
             umsUpgradePersonDevParam.setIcon(icon);
             umsUpgradePersonDevParam.setIdCardPic(idCardPic);
-            UmsPersonDeveloper umsPersonDeveloper = platformService.upgradePersonDev(umsUpgradePersonDevParam);
-            if (umsPersonDeveloper == null) {
+            UmsUser umsUser = platformService.upgradePersonDev(umsUpgradePersonDevParam);
+            if (umsUser == null) {
                 return CommonResult.failed("不好意思，注册失败！系统繁忙，请稍后再试！");
             }
-            return CommonResult.success(umsPersonDeveloper);
+            return CommonResult.success(umsUser);
         } else {
             return CommonResult.failed("手持身份证件照上传失败");
         }
@@ -162,13 +162,14 @@ public class UmsPlatFormController {
     @ApiOperation(value = "公司类型开发者注册")
     @PostMapping(value = "/register/company")
     @ResponseBody
-    public CommonResult<UmsCompanyDeveloper> register(@Valid UmsCompanyDevParam umsCompanyDevParam,
+    public CommonResult<UmsUser> register(@Valid UmsCompanyDevParam umsCompanyDevParam,
                                                       @RequestParam(required=false) MultipartFile iconFile,
                                                       @RequestParam(required=false) MultipartFile businessLicenseFile,
                                                       BindingResult result) {
         if (result.hasErrors()) {
             return CommonResult.failed(result.getAllErrors().get(0).getDefaultMessage());
         }
+        UploadUtil uploadUtil = new UploadUtil();
         String icon = uploadUtil.uploadIcon(iconFile);
         String businessLicense = uploadUtil.uploadDocumentation(UserTypeEnum.COMPANY_DEV.getId(), businessLicenseFile);
         if (icon == null) {
@@ -177,11 +178,11 @@ public class UmsPlatFormController {
         if (businessLicense != null) {
             umsCompanyDevParam.setIcon(icon);
             umsCompanyDevParam.setBusinessLicense(businessLicense);
-            UmsCompanyDeveloper umsCompanyDeveloper = platformService.companyDevRegister(umsCompanyDevParam);
-            if (umsCompanyDeveloper == null) {
+            UmsUser umsUser = platformService.companyDevRegister(umsCompanyDevParam);
+            if (umsUser == null) {
                 return CommonResult.failed("不好意思，注册失败！系统繁忙，请稍后再试！");
             }
-            return CommonResult.success(umsCompanyDeveloper);
+            return CommonResult.success(umsUser);
         } else {
             return CommonResult.failed("营业照上传失败");
         }
@@ -194,8 +195,9 @@ public class UmsPlatFormController {
         String username = umsUser.getUsername();
         String password = umsUser.getPassword();
         String email = umsUser.getEmail();
-        if(platformService.changeEmail(username, password, email)) {
-            return CommonResult.success(new Date(), "修改成功");
+        int count = platformService.changeEmail(username, password, email);
+        if(count > 0) {
+            return CommonResult.success(count);
         } else {
             return CommonResult.failed("修改失败");
         }
@@ -211,8 +213,9 @@ public class UmsPlatFormController {
         }
         String realId = umsUserService.getAuthValue(resetPasswordParams.getToken());
         if (!StringUtils.isEmpty(realId)) {
-            if (umsUserService.resetPassword(Long.parseLong(realId), resetPasswordParams.getNewPassword())) {
-                return CommonResult.success(null, "修改成功");
+            int count = platformService.resetPassword(Long.parseLong(realId), resetPasswordParams.getNewPassword());
+            if (count > 0) {
+                return CommonResult.success(count);
             } else {
                 return CommonResult.failed("十分抱歉，系统出错！");
             }
