@@ -22,3 +22,14 @@
 
 进行中的在dev分支。
 ![tA2bAP.png](https://s1.ax1x.com/2020/05/27/tA2bAP.png)
+
+# 项目结构
+
+## 模块
+~~~
+├── store-common -- 项目中通用的模块，如通用请求返回
+├── store-mail -- 邮箱模块（QQ邮箱）
+├── store-mbg -- MBG生成器和自动生成的model、mapper接口
+├── store-security -- 权限模块（通用配置）
+├── store-openplatform -- 系统入口一：开放平台
+~~~
