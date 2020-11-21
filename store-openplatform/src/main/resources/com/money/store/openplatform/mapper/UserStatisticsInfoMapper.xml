@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.money.store.openplatform.dao.UserStatisticsInfoMapper">
+    <update id="updateStatisticsByUser">
+        update ums_user_statistics_info
+        <set>
+            <if test="user != null">
+                user = #{user,jdbcType=VARCHAR},
+            </if>
+            <if test="downloadAmount != null">
+                download_amount = #{downloadAmount,jdbcType=VARCHAR},
+            </if>
+            <if test="consumeAmount != null">
+                consume_amount = #{consumeAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="orderCount != null">
+                order_count = order_count + #{orderCount,jdbcType=INTEGER},
+            </if>
+            <if test="commentCount != null">
+                comment_count = comment_count + #{commentCount,jdbcType=INTEGER},
+            </if>
+            <if test="loginCount != null">
+                login_count = login_count + #{loginCount,jdbcType=INTEGER},
+            </if>
+            <if test="attendCount != null">
+                attend_count = attend_count + #{attendCount,jdbcType=INTEGER},
+            </if>
+            <if test="fansCount != null">
+                fans_count = fans_count + #{fansCount,jdbcType=INTEGER},
+            </if>
+            <if test="collectAppCount != null">
+                collect_app_count = collect_app_count +#{collectAppCount,jdbcType=INTEGER},
+            </if>
+            <if test="collectTopicCount != null">
+                collect_topic_count = collect_topic_count + #{collectTopicCount,jdbcType=INTEGER},
+            </if>
+            <if test="recentDownloadTime != null">
+                recent_download_time = #{recentDownloadTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="applyAppCount != null">
+                apply_app_count = apply_app_count + #{applyAppCount,jdbcType=INTEGER},
+            </if>
+            <if test="appCount != null">
+                app_count = app_count + #{appCount,jdbcType=INTEGER},
+            </if>
+            <if test="onSaleAppCount != null">
+                on_sale_app_count = on_sale_app_count + #{onSaleAppCount,jdbcType=INTEGER},
+            </if>
+            <if test="devDownloadedCount != null">
+                dev_downloaded_count = dev_downloaded_count + #{devDownloadedCount,jdbcType=INTEGER},
+            </if>
+            <if test="devLoginCount != null">
+                dev_login_count = dev_login_count + #{devLoginCount,jdbcType=INTEGER},
+            </if>
+            <if test="recentPublishTime != null">
+                recent_publish_time = #{recentPublishTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where user = #{user,jdbcType=BIGINT}
+    </update>
+</mapper>

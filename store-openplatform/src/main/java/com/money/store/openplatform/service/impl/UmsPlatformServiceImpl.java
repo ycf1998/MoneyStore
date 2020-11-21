@@ -4,19 +4,19 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.ObjectId;
 import cn.hutool.core.util.IdcardUtil;
 import cn.hutool.core.util.RandomUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.money.store.common.constant.UserTypeEnum;
 import com.money.store.mapper.UmsCompanyDevMapper;
 import com.money.store.mapper.UmsPersonDevMapper;
-import com.money.store.model.UmsCompanyDev;
-import com.money.store.model.UmsPersonDev;
+import com.money.store.mapper.UmsUserStatisticsInfoMapper;
+import com.money.store.model.*;
 import com.money.store.mapper.UmsUserMapper;
-import com.money.store.model.UmsUser;
-import com.money.store.model.UmsUserExample;
 import com.money.store.openplatform.dao.UserMapper;
 import com.money.store.openplatform.dto.UmsCompanyDevParam;
 import com.money.store.openplatform.dto.UmsPersonDevParam;
 import com.money.store.openplatform.dto.UmsUpgradePersonDevParam;
 import com.money.store.openplatform.service.UmsPlatformService;
+import com.money.store.openplatform.service.UmsUserCacheService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +26,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -49,11 +52,15 @@ public class UmsPlatformServiceImpl implements UmsPlatformService {
     private UmsPersonDevMapper umsPersonDevMapper;
     @Autowired
     private UmsCompanyDevMapper umsCompanyDevMapper;
+    @Autowired
+    private UmsUserCacheService userCacheService;
+    @Autowired
+    private UmsUserStatisticsInfoMapper umsUserStatisticsInfoMapper;
 
     public UmsUser getUserByUsername(String username) {
-        UmsUserExample example = new UmsUserExample();
-        example.createCriteria().andUsernameEqualTo(username);
-        List<UmsUser> userList = umsUserMapper.selectByExample(example);
+        QueryWrapper<UmsUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username);
+        List<UmsUser> userList = umsUserMapper.selectList(queryWrapper);
         if (userList != null && userList.size() > 0) {
             return userList.get(0);
         }
@@ -61,9 +68,9 @@ public class UmsPlatformServiceImpl implements UmsPlatformService {
     }
 
     public UmsUser getUserByEmail(String email) {
-        UmsUserExample example = new UmsUserExample();
-        example.createCriteria().andEmailEqualTo(email);
-        List<UmsUser> userList = umsUserMapper.selectByExample(example);
+        QueryWrapper<UmsUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email", email);
+        List<UmsUser> userList = umsUserMapper.selectList(queryWrapper);
         if (userList != null && userList.size() > 0) {
             return userList.get(0);
         }
@@ -91,14 +98,11 @@ public class UmsPlatformServiceImpl implements UmsPlatformService {
         BeanUtils.copyProperties(umsPersonDevParam, umsPersonDev);
         umsUser.setActivation(0);
         umsUser.setType(UserTypeEnum.PERSON_DEV.getId());
-        umsUser.setCreateTime(new Date());
+        umsUser.setCreateTime(LocalDateTime.now());
         umsUser.setStatus(1);
-        umsUser.setBirthday(IdcardUtil.getBirthDate(umsPersonDev.getIdCard()));
+        umsUser.setBirthday(LocalDate.parse(IdcardUtil.getBirthByIdCard(umsPersonDev.getIdCard())));
         // 查询是否有相同用户名的用户
-        UmsUserExample example = new UmsUserExample();
-        example.createCriteria().andUsernameEqualTo(umsUser.getUsername());
-        List<UmsUser> umsUserList = umsUserMapper.selectByExample(example);
-        if (umsUserList.size() > 0) {
+        if (getUserByUsername(umsUser.getUsername()) != null) {
             return null;
         }
         // 将密码进行加密操作
@@ -114,6 +118,7 @@ public class UmsPlatformServiceImpl implements UmsPlatformService {
         umsPersonDev.setAppKey(appKey);
         umsPersonDevMapper.insert(umsPersonDev);
         umsUser.setPassword("");
+        insertUserStatistic(umsUser.getUsername());
         return umsUser;
     }
 
@@ -125,11 +130,11 @@ public class UmsPlatformServiceImpl implements UmsPlatformService {
         BeanUtils.copyProperties(umsUpgradePersonDevParam, umsPersonDev);
         umsUser.setActivation(0);
         umsUser.setType(UserTypeEnum.PERSON_DEV.getId());
-        umsUser.setUpgradeTime(new Date());
-        umsUser.setBirthday(IdcardUtil.getBirthDate(umsPersonDev.getIdCard()));
-        UmsUserExample example = new UmsUserExample();
-        example.createCriteria().andUsernameEqualTo(umsUser.getUsername());
-        umsUserMapper.updateByExampleSelective(umsUser, example);
+        umsUser.setUpgradeTime(LocalDateTime.now());
+        umsUser.setBirthday(LocalDate.parse(IdcardUtil.getBirthByIdCard(umsPersonDev.getIdCard())));
+        QueryWrapper<UmsUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", umsUser.getUsername());
+        umsUserMapper.update(umsUser, queryWrapper);
         Long id = getUserByUsername(umsUser.getUsername()).getId();
         umsPersonDev.setUserId(id);
         // 生成AppId和AppKey
@@ -139,6 +144,7 @@ public class UmsPlatformServiceImpl implements UmsPlatformService {
         umsPersonDev.setAppKey(appKey);
         umsPersonDevMapper.insert(umsPersonDev);
         umsUser.setPassword("");
+        insertUserStatistic(umsUser.getUsername());
         return umsUser;
     }
 
@@ -151,14 +157,11 @@ public class UmsPlatformServiceImpl implements UmsPlatformService {
         umsUser.setActivation(0);
         umsUser.setType(UserTypeEnum.COMPANY_DEV.getId());
         umsUser.setStatus(1);
-        umsUser.setCreateTime(new Date());
+        umsUser.setCreateTime(LocalDateTime.now());
         // 注册日期为生日
-        umsUser.setBirthday(DateUtil.parse(DateUtil.today(), "yyyy-MM-dd"));
+        umsUser.setBirthday(LocalDate.now());
         // 查询是否有相同用户名的用户
-        UmsUserExample example = new UmsUserExample();
-        example.createCriteria().andUsernameEqualTo(umsUser.getUsername());
-        List<UmsUser> umsUserList = umsUserMapper.selectByExample(example);
-        if (umsUserList.size() > 0) {
+        if (getUserByUsername(umsUser.getUsername()) != null) {
             return null;
         }
         // 将密码进行加密操作
@@ -174,12 +177,14 @@ public class UmsPlatformServiceImpl implements UmsPlatformService {
         umsCompanyDev.setAppKey(appKey);
         umsCompanyDevMapper.insert(umsCompanyDev);
         umsUser.setPassword("");
+        insertUserStatistic(umsUser.getUsername());
         return umsUser;
     }
 
     @Override
     public void activateDev(String username) {
         userMapper.updateActivationStatus(username);
+        userCacheService.delUser(username);
     }
 
     @Override
@@ -208,10 +213,29 @@ public class UmsPlatformServiceImpl implements UmsPlatformService {
     @Override
     public int resetPassword(Long id, String newPassword) {
         String encodePassword = passwordEncoder.encode(newPassword);
-        UmsUserExample example = new UmsUserExample();
-        example.createCriteria().andIdEqualTo(id);
         UmsUser umsUser = new UmsUser();
+        umsUser.setId(id);
         umsUser.setPassword(encodePassword);
-        return umsUserMapper.updateByExampleSelective(umsUser, example);
+        return umsUserMapper.updateById(umsUser);
+    }
+
+    private void insertUserStatistic(String user) {
+        UmsUserStatisticsInfo userStatisticsInfo = new UmsUserStatisticsInfo();
+        userStatisticsInfo.setDevLoginCount(1);
+        userStatisticsInfo.setUser(user);
+        userStatisticsInfo.setAppCount(0);
+        userStatisticsInfo.setApplyAppCount(0);
+        userStatisticsInfo.setAttendCount(0);
+        userStatisticsInfo.setCollectAppCount(0);
+        userStatisticsInfo.setCollectTopicCount(0);
+        userStatisticsInfo.setCommentCount(0);
+        userStatisticsInfo.setConsumeAmount(new BigDecimal(0));
+        userStatisticsInfo.setDevDownloadedCount(0);
+        userStatisticsInfo.setDownloadAmount("0");
+        userStatisticsInfo.setFansCount(0);
+        userStatisticsInfo.setLoginCount(0);
+        userStatisticsInfo.setOnSaleAppCount(0);
+        userStatisticsInfo.setOrderCount(0);
+        umsUserStatisticsInfoMapper.insert(userStatisticsInfo);
     }
 }

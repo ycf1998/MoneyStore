@@ -1,30 +1,16 @@
 package com.money.store.mapper;
 
 import com.money.store.model.AmsAppApplyRecord;
-import com.money.store.model.AmsAppApplyRecordExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-public interface AmsAppApplyRecordMapper {
-    int countByExample(AmsAppApplyRecordExample example);
+/**
+ * <p>
+ * App应用上架申请/审核记录 Mapper 接口
+ * </p>
+ *
+ * @author Money
+ * @since 2020-11-17
+ */
+public interface AmsAppApplyRecordMapper extends BaseMapper<AmsAppApplyRecord> {
 
-    int deleteByExample(AmsAppApplyRecordExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(AmsAppApplyRecord record);
-
-    int insertSelective(AmsAppApplyRecord record);
-
-    List<AmsAppApplyRecord> selectByExample(AmsAppApplyRecordExample example);
-
-    AmsAppApplyRecord selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("record") AmsAppApplyRecord record, @Param("example") AmsAppApplyRecordExample example);
-
-    int updateByExample(@Param("record") AmsAppApplyRecord record, @Param("example") AmsAppApplyRecordExample example);
-
-    int updateByPrimaryKeySelective(AmsAppApplyRecord record);
-
-    int updateByPrimaryKey(AmsAppApplyRecord record);
 }

@@ -3,19 +3,20 @@ package com.money.store.openplatform.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.money.store.mapper.UmsCompanyDevMapper;
 import com.money.store.mapper.UmsPersonDevMapper;
 import com.money.store.mapper.UmsUserLoginLogMapper;
 import com.money.store.mapper.UmsUserMapper;
 import com.money.store.model.*;
-import com.money.store.openplatform.domain.UmsUserDetail;
+import com.money.store.openplatform.pojo.UmsUserDetail;
 import com.money.store.openplatform.dto.UpdateProfileParam;
 import com.money.store.openplatform.dto.UpdateUserPasswordParam;
-import com.money.store.openplatform.service.RedisService;
+import com.money.store.common.service.RedisService;
 import com.money.store.openplatform.service.UmsUserCacheService;
 import com.money.store.openplatform.service.UmsUserService;
-import com.money.store.openplatform.util.ip.AddressUtils;
-import com.money.store.openplatform.util.ip.IpUtils;
+import com.money.store.common.utils.ip.AddressUtils;
+import com.money.store.common.utils.ip.IpUtils;
 import com.money.store.security.util.JwtTokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,12 +30,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -73,9 +73,9 @@ public class UmsUserServiceImpl implements UmsUserService {
         if (umsUser != null) {
             return umsUser;
         }
-        UmsUserExample example = new UmsUserExample();
-        example.createCriteria().andUsernameEqualTo(username);
-        List<UmsUser> userList = umsUserMapper.selectByExample(example);
+        QueryWrapper<UmsUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username);
+        List<UmsUser> userList = umsUserMapper.selectList(queryWrapper);
         if (userList != null && userList.size() > 0) {
             userCacheService.setUser(userList.get(0));
             return userList.get(0);
@@ -85,9 +85,9 @@ public class UmsUserServiceImpl implements UmsUserService {
 
     @Override
     public UmsUser getUserByEmail(String email) {
-        UmsUserExample example = new UmsUserExample();
-        example.createCriteria().andEmailEqualTo(email);
-        List<UmsUser> userList = umsUserMapper.selectByExample(example);
+        QueryWrapper<UmsUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("email", email);
+        List<UmsUser> userList = umsUserMapper.selectList(queryWrapper);
         if (userList != null && userList.size() > 0) {
             return userList.get(0);
         }
@@ -120,7 +120,7 @@ public class UmsUserServiceImpl implements UmsUserService {
         if(umsUser==null) { return;};
         UmsUserLoginLog loginLog = new UmsUserLoginLog();
         loginLog.setUserId(umsUser.getId());
-        loginLog.setCreateTime(new Date());
+        loginLog.setCreateTime(LocalDateTime.now());
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = null;
         request = attributes.getRequest();
@@ -136,9 +136,9 @@ public class UmsUserServiceImpl implements UmsUserService {
     public UmsPersonDev getPersonDevProFile(String username) {
         UmsUser umsUser = getUserByUsername(username);
         umsUser.setPassword("");
-        UmsPersonDevExample example = new UmsPersonDevExample();
-        example.createCriteria().andUserIdEqualTo(umsUser.getId());
-        List<UmsPersonDev> devList = personDevMapper.selectByExample(example);
+        QueryWrapper<UmsPersonDev> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", umsUser.getId());
+        List<UmsPersonDev> devList = personDevMapper.selectList(queryWrapper);
         if (!CollectionUtil.isEmpty(devList)) {
             UmsPersonDev umsPersonDev = devList.get(0);
             Optional<String> idCardOpt = Optional.ofNullable(umsPersonDev.getIdCard());
@@ -158,9 +158,9 @@ public class UmsUserServiceImpl implements UmsUserService {
     public UmsCompanyDev getCompanyDevProFile(String username) {
         UmsUser umsUser = getUserByUsername(username);
         umsUser.setPassword("");
-        UmsCompanyDevExample example = new UmsCompanyDevExample();
-        example.createCriteria().andUserIdEqualTo(umsUser.getId());
-        List<UmsCompanyDev> devList = companyDevMapper.selectByExample(example);
+        QueryWrapper<UmsCompanyDev> queryWrapper = new QueryWrapper();
+        queryWrapper.eq("user_id", umsUser.getId());
+        List<UmsCompanyDev> devList = companyDevMapper.selectList(queryWrapper);
         if (!CollectionUtil.isEmpty(devList)) {
             UmsCompanyDev companyDev = devList.get(0);
             Optional<String> numOpt = Optional.ofNullable(companyDev.getBusinessLicenseRegNumber());
@@ -177,12 +177,22 @@ public class UmsUserServiceImpl implements UmsUserService {
     }
 
     @Override
+    public List<UmsUserLoginLog> getLoginLog(String username) {
+        UmsUser umsUser = getUserByUsername(username);
+        if(umsUser==null) { return null;}
+        QueryWrapper<UmsUserLoginLog> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", umsUser.getId());
+        queryWrapper.orderByDesc("create_time");
+        return loginLogMapper.selectList(queryWrapper);
+    }
+
+    @Override
     public int update(UpdateProfileParam param) {
         UmsUser umsUser = new UmsUser();
         BeanUtil.copyProperties(param, umsUser);
-        UmsUserExample example = new UmsUserExample();
-        example.createCriteria().andUsernameEqualTo(umsUser.getUsername());
-        int count = umsUserMapper.updateByExampleSelective(umsUser, example);
+        QueryWrapper<UmsUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", umsUser.getUsername());
+        int count = umsUserMapper.update(umsUser, queryWrapper);
         userCacheService.delUser(umsUser.getUsername());
         return count;
     }
@@ -194,9 +204,9 @@ public class UmsUserServiceImpl implements UmsUserService {
                 ||StrUtil.isEmpty(param.getNewPassword())){
             return -1;
         }
-        UmsUserExample example = new UmsUserExample();
-        example.createCriteria().andUsernameEqualTo(param.getUsername());
-        List<UmsUser> umsUserList = umsUserMapper.selectByExample(example);
+        QueryWrapper<UmsUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", param.getUsername());
+        List<UmsUser> umsUserList = umsUserMapper.selectList(queryWrapper);
         if (CollectionUtil.isEmpty(umsUserList)) {
             return -2;
         }
@@ -209,18 +219,18 @@ public class UmsUserServiceImpl implements UmsUserService {
             return 1;
         }
         umsUser.setPassword(passwordEncoder.encode(param.getNewPassword()));
-        umsUserMapper.updateByExampleSelective(umsUser, example);
+        umsUserMapper.update(umsUser, queryWrapper);
         userCacheService.delUser(umsUser.getUsername());
         return 1;
     }
 
     @Override
     public int updateAvatar(String username, String newIcon) {
-        UmsUserExample example = new UmsUserExample();
-        example.createCriteria().andUsernameEqualTo(username);
+        QueryWrapper<UmsUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("username", username);
         UmsUser umsUser = new UmsUser();
         umsUser.setIcon(newIcon);
-        int count = umsUserMapper.updateByExampleSelective(umsUser, example);
+        int count = umsUserMapper.update(umsUser, queryWrapper);
         userCacheService.delUser(umsUser.getUsername());
         return count;
     }
@@ -232,11 +242,11 @@ public class UmsUserServiceImpl implements UmsUserService {
             return 1;
         }
         if (passwordEncoder.matches(password, umsUser.getPassword())) {
-            UmsUserExample example = new UmsUserExample();
-            example.createCriteria().andUsernameEqualTo(umsUser.getUsername());
+            QueryWrapper<UmsUser> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("username", umsUser.getUsername());
             umsUser.setEmail(email);
             umsUser.setActivation(0);
-            int count = umsUserMapper.updateByExampleSelective(umsUser, example);
+            int count = umsUserMapper.update(umsUser, queryWrapper);
             userCacheService.delUser(umsUser.getUsername());
             return count;
         } else {
@@ -258,11 +268,11 @@ public class UmsUserServiceImpl implements UmsUserService {
 
     @Override
     public String getAuthValue(String key) {
-        if (StringUtils.isEmpty(key)) {
+        if (StrUtil.isBlank(key)) {
             return null;
         }
         String realValue = (String)redisService.get(key);
-        if (!StringUtils.isEmpty(realValue)) {
+        if (StrUtil.isNotBlank(realValue)) {
             return realValue;
         } else {
             return null;
@@ -271,9 +281,9 @@ public class UmsUserServiceImpl implements UmsUserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) {
-        UmsUser member = getUserByUsername(username);
-        if(member!=null){
-            return new UmsUserDetail(member);
+        UmsUser user = getUserByUsername(username);
+        if(user!=null){
+            return new UmsUserDetail(user);
         }
         throw new UsernameNotFoundException("用户名或密码错误");
     }

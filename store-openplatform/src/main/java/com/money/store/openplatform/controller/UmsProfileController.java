@@ -1,14 +1,18 @@
 package com.money.store.openplatform.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.money.store.common.api.CommonResult;
 import com.money.store.common.constant.UserTypeEnum;
 import com.money.store.model.UmsCompanyDev;
 import com.money.store.model.UmsPersonDev;
 import com.money.store.model.UmsUser;
+import com.money.store.model.UmsUserLoginLog;
 import com.money.store.openplatform.dto.UpdateProfileParam;
 import com.money.store.openplatform.dto.UpdateUserPasswordParam;
 import com.money.store.openplatform.service.UmsUserService;
-import com.money.store.openplatform.util.UploadUtil;
+import com.money.store.openplatform.service.UploadFileService;
+import com.money.store.openplatform.util.file.UploadUtil;
+import com.sun.deploy.ui.AppInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,6 +37,18 @@ public class UmsProfileController {
 
     @Autowired
     private UmsUserService umsUserService;
+    @Autowired
+    private UploadFileService uploadFileService;
+
+    @ApiOperation(value = "获取登录日志")
+    @GetMapping(value = "/loginLog")
+    @ResponseBody
+    public CommonResult loginLog(Principal principal) {
+        PageInfo<AppInfo> pageInfo = new PageInfo<AppInfo>();
+        String username = principal.getName();
+        List<UmsUserLoginLog> loginLog = umsUserService.getLoginLog(username);
+        return CommonResult.success(loginLog);
+    }
 
     @ApiOperation(value = "获取当前登录用户个人主页信息")
     @GetMapping(value = "/profile")
@@ -90,7 +107,7 @@ public class UmsProfileController {
     @PostMapping("/avatar")
     public CommonResult avatar(@RequestParam MultipartFile file, Principal principal) {
         UploadUtil uploadUtil = new UploadUtil();
-        String newIcon = uploadUtil.uploadIcon(file);
+        String newIcon = uploadFileService.uploadIcon(file);
         if (newIcon != null) {
             String username = principal.getName();
             int count = umsUserService.updateAvatar(username, newIcon);

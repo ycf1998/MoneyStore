@@ -1,10 +1,6 @@
 package com.money.store.openplatform.controller;
 
-import cn.hutool.json.JSON;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
+
 import com.money.store.common.api.CommonResult;
 import com.money.store.model.UmsUser;
 import com.money.store.openplatform.dto.UmsUserLoginParam;
@@ -14,10 +10,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
@@ -57,7 +53,7 @@ public class UmsUserController {
     @ApiOperation(value = "登录以后返回token")
     @PostMapping(value = "/login")
     @ResponseBody
-    public CommonResult login(@RequestBody UmsUserLoginParam umsUserLoginParam, BindingResult result) {
+    public CommonResult login(@Valid @RequestBody UmsUserLoginParam umsUserLoginParam) {
         String token = umsUserService.login(umsUserLoginParam.getUsername(), umsUserLoginParam.getPassword());
         if (token == null) {
             return CommonResult.validateFailed("用户名或密码错误");

@@ -1,30 +1,16 @@
 package com.money.store.mapper;
 
 import com.money.store.model.UmsRolePermissionRelation;
-import com.money.store.model.UmsRolePermissionRelationExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-public interface UmsRolePermissionRelationMapper {
-    int countByExample(UmsRolePermissionRelationExample example);
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author Money
+ * @since 2020-11-17
+ */
+public interface UmsRolePermissionRelationMapper extends BaseMapper<UmsRolePermissionRelation> {
 
-    int deleteByExample(UmsRolePermissionRelationExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(UmsRolePermissionRelation record);
-
-    int insertSelective(UmsRolePermissionRelation record);
-
-    List<UmsRolePermissionRelation> selectByExample(UmsRolePermissionRelationExample example);
-
-    UmsRolePermissionRelation selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("record") UmsRolePermissionRelation record, @Param("example") UmsRolePermissionRelationExample example);
-
-    int updateByExample(@Param("record") UmsRolePermissionRelation record, @Param("example") UmsRolePermissionRelationExample example);
-
-    int updateByPrimaryKeySelective(UmsRolePermissionRelation record);
-
-    int updateByPrimaryKey(UmsRolePermissionRelation record);
 }

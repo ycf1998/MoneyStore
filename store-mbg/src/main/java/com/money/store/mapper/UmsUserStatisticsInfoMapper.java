@@ -1,30 +1,16 @@
 package com.money.store.mapper;
 
 import com.money.store.model.UmsUserStatisticsInfo;
-import com.money.store.model.UmsUserStatisticsInfoExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-public interface UmsUserStatisticsInfoMapper {
-    int countByExample(UmsUserStatisticsInfoExample example);
+/**
+ * <p>
+ * 用户统计信息 Mapper 接口
+ * </p>
+ *
+ * @author Money
+ * @since 2020-11-17
+ */
+public interface UmsUserStatisticsInfoMapper extends BaseMapper<UmsUserStatisticsInfo> {
 
-    int deleteByExample(UmsUserStatisticsInfoExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(UmsUserStatisticsInfo record);
-
-    int insertSelective(UmsUserStatisticsInfo record);
-
-    List<UmsUserStatisticsInfo> selectByExample(UmsUserStatisticsInfoExample example);
-
-    UmsUserStatisticsInfo selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("record") UmsUserStatisticsInfo record, @Param("example") UmsUserStatisticsInfoExample example);
-
-    int updateByExample(@Param("record") UmsUserStatisticsInfo record, @Param("example") UmsUserStatisticsInfoExample example);
-
-    int updateByPrimaryKeySelective(UmsUserStatisticsInfo record);
-
-    int updateByPrimaryKey(UmsUserStatisticsInfo record);
 }

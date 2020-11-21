@@ -3,10 +3,12 @@ package com.money.store.openplatform.service;
 import com.money.store.model.UmsCompanyDev;
 import com.money.store.model.UmsPersonDev;
 import com.money.store.model.UmsUser;
-import com.money.store.openplatform.domain.UmsCompanyDeveloper;
+import com.money.store.model.UmsUserLoginLog;
 import com.money.store.openplatform.dto.UpdateProfileParam;
 import com.money.store.openplatform.dto.UpdateUserPasswordParam;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.List;
 
 /**
  * @program: store
@@ -53,6 +55,13 @@ public interface UmsUserService {
     UmsCompanyDev getCompanyDevProFile(String username);
 
     /**
+     * 获得登录日志
+     * @param username
+     * @return
+     */
+    List<UmsUserLoginLog> getLoginLog(String username);
+
+    /**
      * 用户修改个人基本资料
      * @param param
      * @return
@@ -74,6 +83,13 @@ public interface UmsUserService {
      */
     int updateAvatar(String username, String newIcon);
 
+    /**
+     * 更新邮箱
+     * @param email
+     * @param username
+     * @param password
+     * @return
+     */
     int updateEmail(String email, String username, String password);
 
     /**
@@ -100,7 +116,7 @@ public interface UmsUserService {
     String getAuthValue(String key);
 
     /**
-     * 获取用户信息
+     * 获取用户信息 Security
      * @param username
      * @return
      */

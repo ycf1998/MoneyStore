@@ -18,6 +18,11 @@
     </parent>
 
     <dependencies>
+        <!--store通用模块-->
+        <dependency>
+            <groupId>com.money</groupId>
+            <artifactId>store-common</artifactId>
+        </dependency>
         <!--store安全模块-->
         <dependency>
             <groupId>com.money</groupId>
@@ -33,15 +38,33 @@
             <groupId>com.money</groupId>
             <artifactId>store-mail</artifactId>
         </dependency>
-        <!--redis依赖配置-->
+
+        <!-- Mybatis -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+            <version>${mybatis.version}</version>
+        </dependency>
+        <!--Mybatis-plus-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-extension</artifactId>
+            <version>3.4.1</version>
         </dependency>
         <!-- thymeleaf -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <!-- APK解析 -->
+        <dependency>
+            <groupId>net.dongliu</groupId>
+            <artifactId>apk-parser</artifactId>
+            <version>2.6.10</version>
         </dependency>
         <!-- 泽鸿邮箱服务 -->
 <!--        <dependency>-->
@@ -49,13 +72,6 @@
 <!--            <artifactId>mail-client</artifactId>-->
 <!--            <version>1.0.1.release</version>-->
 <!--        </dependency>-->
-
-        <!--热部署-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <optional>true</optional>
-        </dependency>
     </dependencies>
 
     <build>

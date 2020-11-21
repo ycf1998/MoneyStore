@@ -1,30 +1,16 @@
 package com.money.store.mapper;
 
 import com.money.store.model.UmsPermission;
-import com.money.store.model.UmsPermissionExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-public interface UmsPermissionMapper {
-    int countByExample(UmsPermissionExample example);
+/**
+ * <p>
+ *  Mapper 接口
+ * </p>
+ *
+ * @author Money
+ * @since 2020-11-17
+ */
+public interface UmsPermissionMapper extends BaseMapper<UmsPermission> {
 
-    int deleteByExample(UmsPermissionExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(UmsPermission record);
-
-    int insertSelective(UmsPermission record);
-
-    List<UmsPermission> selectByExample(UmsPermissionExample example);
-
-    UmsPermission selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("record") UmsPermission record, @Param("example") UmsPermissionExample example);
-
-    int updateByExample(@Param("record") UmsPermission record, @Param("example") UmsPermissionExample example);
-
-    int updateByPrimaryKeySelective(UmsPermission record);
-
-    int updateByPrimaryKey(UmsPermission record);
 }

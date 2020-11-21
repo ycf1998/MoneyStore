@@ -1,30 +1,16 @@
 package com.money.store.mapper;
 
 import com.money.store.model.AmsAppCategory;
-import com.money.store.model.AmsAppCategoryExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-public interface AmsAppCategoryMapper {
-    int countByExample(AmsAppCategoryExample example);
+/**
+ * <p>
+ * App应用分类 Mapper 接口
+ * </p>
+ *
+ * @author Money
+ * @since 2020-11-17
+ */
+public interface AmsAppCategoryMapper extends BaseMapper<AmsAppCategory> {
 
-    int deleteByExample(AmsAppCategoryExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(AmsAppCategory record);
-
-    int insertSelective(AmsAppCategory record);
-
-    List<AmsAppCategory> selectByExample(AmsAppCategoryExample example);
-
-    AmsAppCategory selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("record") AmsAppCategory record, @Param("example") AmsAppCategoryExample example);
-
-    int updateByExample(@Param("record") AmsAppCategory record, @Param("example") AmsAppCategoryExample example);
-
-    int updateByPrimaryKeySelective(AmsAppCategory record);
-
-    int updateByPrimaryKey(AmsAppCategory record);
 }

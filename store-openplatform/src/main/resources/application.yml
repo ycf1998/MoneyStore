@@ -2,6 +2,12 @@ spring:
     profiles:
         active: dev # 默认开发环境
 
+    # 文件上传配置
+    servlet:
+        multipart:
+            max-file-size: 10240MB
+            max-request-size: 1024MB
+
     # 邮箱服务
     mail:
         host: smtp.qq.com # 邮箱服务器
@@ -29,6 +35,11 @@ mybatis:
     mapper-locations: # mapper.xml包地址
         - classpath:dao/*.xml
         - classpath*:com/**/mapper/*.xml
+    configuration:
+        log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启sql语句日志打印
+#mybatis-plus
+mybatis-plus:
+    mapper-locations: classpath*:com/**/mapper/*.xml
     configuration:
         log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 开启sql语句日志打印
 # pageHelper分页插件
@@ -61,6 +72,7 @@ secure:
             - /sso/login
             - /platform/**
             - /mail/**
+            - /apk
 
 # 自定义redis key
 redis:

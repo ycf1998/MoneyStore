@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.money.store.openplatform.dao.AppVersionMapper">
+    <resultMap id="BaseResultMap" type="com.money.store.model.AmsAppVersion">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="app_id" jdbcType="BIGINT" property="appId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="size" jdbcType="VARCHAR" property="size" />
+        <result column="install_file" jdbcType="VARCHAR" property="installFile" />
+        <result column="package_name" jdbcType="VARCHAR" property="packageName" />
+        <result column="version_name" jdbcType="VARCHAR" property="versionName" />
+        <result column="version_code" jdbcType="VARCHAR" property="versionCode" />
+        <result column="language" jdbcType="VARCHAR" property="language" />
+        <result column="screen_size" jdbcType="VARCHAR" property="screenSize" />
+        <result column="expenses" jdbcType="VARCHAR" property="expenses" />
+        <result column="price" jdbcType="DECIMAL" property="price" />
+        <result column="logo" jdbcType="VARCHAR" property="logo" />
+        <result column="video" jdbcType="VARCHAR" property="video" />
+        <result column="pics" jdbcType="VARCHAR" property="pics" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="online_date" jdbcType="TIMESTAMP" property="onlineDate" />
+        <result column="offline_date" jdbcType="TIMESTAMP" property="offlineDate" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="apply_record_id" jdbcType="BIGINT" property="applyRecordId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, app_id, name, size, install_file, package_name, version_name, version_code, language,
+    screen_size, expenses, price, logo, video, pics, create_date, online_date, offline_date,
+    status, apply_record_id
+  </sql>
+
+    <insert id="insert" parameterType="com.money.store.model.AmsAppVersion"
+            keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into ams_app_version
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="appId != null">
+                app_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="size != null">
+                size,
+            </if>
+            <if test="installFile != null">
+                install_file,
+            </if>
+            <if test="packageName != null">
+                package_name,
+            </if>
+            <if test="versionName != null">
+                version_name,
+            </if>
+            <if test="versionCode != null">
+                version_code,
+            </if>
+            <if test="language != null">
+                language,
+            </if>
+            <if test="screenSize != null">
+                screen_size,
+            </if>
+            <if test="expenses != null">
+                expenses,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="logo != null">
+                logo,
+            </if>
+            <if test="video != null">
+                video,
+            </if>
+            <if test="pics != null">
+                pics,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="onlineDate != null">
+                online_date,
+            </if>
+            <if test="offlineDate != null">
+                offline_date,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="applyRecordId != null">
+                apply_record_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="appId != null">
+                #{appId,jdbcType=BIGINT},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                #{size,jdbcType=VARCHAR},
+            </if>
+            <if test="installFile != null">
+                #{installFile,jdbcType=VARCHAR},
+            </if>
+            <if test="packageName != null">
+                #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="versionName != null">
+                #{versionName,jdbcType=VARCHAR},
+            </if>
+            <if test="versionCode != null">
+                #{versionCode,jdbcType=VARCHAR},
+            </if>
+            <if test="language != null">
+                #{language,jdbcType=VARCHAR},
+            </if>
+            <if test="screenSize != null">
+                #{screenSize,jdbcType=VARCHAR},
+            </if>
+            <if test="expenses != null">
+                #{expenses,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="logo != null">
+                #{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="video != null">
+                #{video,jdbcType=VARCHAR},
+            </if>
+            <if test="pics != null">
+                #{pics,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="onlineDate != null">
+                #{onlineDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="offlineDate != null">
+                #{offlineDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="applyRecordId != null">
+                #{applyRecordId,jdbcType=BIGINT},
+            </if>
+        </trim>
+    </insert>
+</mapper>

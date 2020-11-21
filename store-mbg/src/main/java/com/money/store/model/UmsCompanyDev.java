@@ -1,9 +1,29 @@
 package com.money.store.model;
 
-import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+/**
+ * <p>
+ * 公司类型开发者
+ * </p>
+ *
+ * @author Money
+ * @since 2020-11-17
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@ApiModel(value="UmsCompanyDev对象", description="公司类型开发者")
 public class UmsCompanyDev implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     private Long userId;
@@ -32,106 +52,5 @@ public class UmsCompanyDev implements Serializable {
     @ApiModelProperty(value = "银行卡号")
     private String bankCardNumber;
 
-    private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getAppId() {
-        return appId;
-    }
-
-    public void setAppId(String appId) {
-        this.appId = appId == null ? null : appId.trim();
-    }
-
-    public String getAppKey() {
-        return appKey;
-    }
-
-    public void setAppKey(String appKey) {
-        this.appKey = appKey == null ? null : appKey.trim();
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName == null ? null : companyName.trim();
-    }
-
-    public String getBusinessLicenseRegNumber() {
-        return businessLicenseRegNumber;
-    }
-
-    public void setBusinessLicenseRegNumber(String businessLicenseRegNumber) {
-        this.businessLicenseRegNumber = businessLicenseRegNumber == null ? null : businessLicenseRegNumber.trim();
-    }
-
-    public String getBusinessLicense() {
-        return businessLicense;
-    }
-
-    public void setBusinessLicense(String businessLicense) {
-        this.businessLicense = businessLicense == null ? null : businessLicense.trim();
-    }
-
-    public String getCardholder() {
-        return cardholder;
-    }
-
-    public void setCardholder(String cardholder) {
-        this.cardholder = cardholder == null ? null : cardholder.trim();
-    }
-
-    public String getBankCardType() {
-        return bankCardType;
-    }
-
-    public void setBankCardType(String bankCardType) {
-        this.bankCardType = bankCardType == null ? null : bankCardType.trim();
-    }
-
-    public String getBankCardNumber() {
-        return bankCardNumber;
-    }
-
-    public void setBankCardNumber(String bankCardNumber) {
-        this.bankCardNumber = bankCardNumber == null ? null : bankCardNumber.trim();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", appId=").append(appId);
-        sb.append(", appKey=").append(appKey);
-        sb.append(", companyName=").append(companyName);
-        sb.append(", businessLicenseRegNumber=").append(businessLicenseRegNumber);
-        sb.append(", businessLicense=").append(businessLicense);
-        sb.append(", cardholder=").append(cardholder);
-        sb.append(", bankCardType=").append(bankCardType);
-        sb.append(", bankCardNumber=").append(bankCardNumber);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

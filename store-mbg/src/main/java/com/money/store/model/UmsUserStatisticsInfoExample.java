@@ -166,63 +166,73 @@ public class UmsUserStatisticsInfoExample {
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNull() {
-            addCriterion("user_id is null");
+        public Criteria andUserIsNull() {
+            addCriterion("user is null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIsNotNull() {
-            addCriterion("user_id is not null");
+        public Criteria andUserIsNotNull() {
+            addCriterion("user is not null");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdEqualTo(Long value) {
-            addCriterion("user_id =", value, "userId");
+        public Criteria andUserEqualTo(String value) {
+            addCriterion("user =", value, "user");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotEqualTo(Long value) {
-            addCriterion("user_id <>", value, "userId");
+        public Criteria andUserNotEqualTo(String value) {
+            addCriterion("user <>", value, "user");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThan(Long value) {
-            addCriterion("user_id >", value, "userId");
+        public Criteria andUserGreaterThan(String value) {
+            addCriterion("user >", value, "user");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("user_id >=", value, "userId");
+        public Criteria andUserGreaterThanOrEqualTo(String value) {
+            addCriterion("user >=", value, "user");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThan(Long value) {
-            addCriterion("user_id <", value, "userId");
+        public Criteria andUserLessThan(String value) {
+            addCriterion("user <", value, "user");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdLessThanOrEqualTo(Long value) {
-            addCriterion("user_id <=", value, "userId");
+        public Criteria andUserLessThanOrEqualTo(String value) {
+            addCriterion("user <=", value, "user");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdIn(List<Long> values) {
-            addCriterion("user_id in", values, "userId");
+        public Criteria andUserLike(String value) {
+            addCriterion("user like", value, "user");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotIn(List<Long> values) {
-            addCriterion("user_id not in", values, "userId");
+        public Criteria andUserNotLike(String value) {
+            addCriterion("user not like", value, "user");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdBetween(Long value1, Long value2) {
-            addCriterion("user_id between", value1, value2, "userId");
+        public Criteria andUserIn(List<String> values) {
+            addCriterion("user in", values, "user");
             return (Criteria) this;
         }
 
-        public Criteria andUserIdNotBetween(Long value1, Long value2) {
-            addCriterion("user_id not between", value1, value2, "userId");
+        public Criteria andUserNotIn(List<String> values) {
+            addCriterion("user not in", values, "user");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserBetween(String value1, String value2) {
+            addCriterion("user between", value1, value2, "user");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserNotBetween(String value1, String value2) {
+            addCriterion("user not between", value1, value2, "user");
             return (Criteria) this;
         }
 
@@ -833,6 +843,66 @@ public class UmsUserStatisticsInfoExample {
 
         public Criteria andRecentDownloadTimeNotBetween(Date value1, Date value2) {
             addCriterion("recent_download_time not between", value1, value2, "recentDownloadTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountIsNull() {
+            addCriterion("apply_app_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountIsNotNull() {
+            addCriterion("apply_app_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountEqualTo(Integer value) {
+            addCriterion("apply_app_count =", value, "applyAppCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountNotEqualTo(Integer value) {
+            addCriterion("apply_app_count <>", value, "applyAppCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountGreaterThan(Integer value) {
+            addCriterion("apply_app_count >", value, "applyAppCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountGreaterThanOrEqualTo(Integer value) {
+            addCriterion("apply_app_count >=", value, "applyAppCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountLessThan(Integer value) {
+            addCriterion("apply_app_count <", value, "applyAppCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountLessThanOrEqualTo(Integer value) {
+            addCriterion("apply_app_count <=", value, "applyAppCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountIn(List<Integer> values) {
+            addCriterion("apply_app_count in", values, "applyAppCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountNotIn(List<Integer> values) {
+            addCriterion("apply_app_count not in", values, "applyAppCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountBetween(Integer value1, Integer value2) {
+            addCriterion("apply_app_count between", value1, value2, "applyAppCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andApplyAppCountNotBetween(Integer value1, Integer value2) {
+            addCriterion("apply_app_count not between", value1, value2, "applyAppCount");
             return (Criteria) this;
         }
 

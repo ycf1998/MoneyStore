@@ -3,9 +3,7 @@ package com.money.store.openplatform.controller;
 import com.money.store.common.api.CommonResult;
 import com.money.store.common.constant.UserTypeEnum;
 import com.money.store.openplatform.dto.*;
-import com.money.store.openplatform.util.UploadUtil;
-import com.money.store.openplatform.domain.UmsCompanyDeveloper;
-import com.money.store.openplatform.domain.UmsPersonDeveloper;
+import com.money.store.openplatform.service.UploadFileService;
 import com.money.store.model.UmsUser;
 import com.money.store.openplatform.service.UmsPlatformService;
 import com.money.store.openplatform.service.UmsUserService;
@@ -19,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,6 +34,8 @@ public class UmsPlatFormController {
     private UmsUserService umsUserService;
     @Autowired
     private UmsPlatformService platformService;
+    @Autowired
+    private UploadFileService uploadFileService;
 
     @ApiOperation(value = "激活开发者资质")
     @GetMapping(value = "/activeDev/{token}")
@@ -87,7 +86,7 @@ public class UmsPlatFormController {
     @ApiOperation(value = "注册时验证为商店用户")
     @PostMapping(value = "/register/login")
     @ResponseBody
-    public CommonResult regLogin(@RequestBody UmsUserLoginParam umsUserLoginParam, BindingResult result) {
+    public CommonResult regLogin(@Valid @RequestBody UmsUserLoginParam umsUserLoginParam) {
         UmsUser umsUser = platformService.regLogin(umsUserLoginParam.getUsername(), umsUserLoginParam.getPassword());
         if (umsUser == null) {
             return CommonResult.validateFailed("用户名或密码错误");
@@ -114,9 +113,8 @@ public class UmsPlatFormController {
         if (result.hasErrors()) {
             return CommonResult.failed(result.getAllErrors().get(0).getDefaultMessage());
         }
-        UploadUtil uploadUtil = new UploadUtil();
-        String icon = uploadUtil.uploadIcon(iconFile);
-        String idCardPic = uploadUtil.uploadDocumentation(UserTypeEnum.PERSON_DEV.getId(), idCardPicFile);
+        String icon = uploadFileService.uploadIcon(iconFile);
+        String idCardPic = uploadFileService.uploadDocumentation(idCardPicFile, UserTypeEnum.PERSON_DEV);
         if (icon == null) {
             icon = "person.jpg";
         }
@@ -143,9 +141,8 @@ public class UmsPlatFormController {
         if (result.hasErrors()) {
             return CommonResult.failed(result.getAllErrors().get(0).getDefaultMessage());
         }
-        UploadUtil uploadUtil = new UploadUtil();
-        String icon = uploadUtil.uploadIcon(iconFile);
-        String idCardPic = uploadUtil.uploadDocumentation(UserTypeEnum.PERSON_DEV.getId(), idCardPicFile);
+        String icon = uploadFileService.uploadIcon(iconFile);
+        String idCardPic = uploadFileService.uploadDocumentation(idCardPicFile, UserTypeEnum.PERSON_DEV);
         if (idCardPic != null) {
             umsUpgradePersonDevParam.setIcon(icon);
             umsUpgradePersonDevParam.setIdCardPic(idCardPic);
@@ -169,9 +166,8 @@ public class UmsPlatFormController {
         if (result.hasErrors()) {
             return CommonResult.failed(result.getAllErrors().get(0).getDefaultMessage());
         }
-        UploadUtil uploadUtil = new UploadUtil();
-        String icon = uploadUtil.uploadIcon(iconFile);
-        String businessLicense = uploadUtil.uploadDocumentation(UserTypeEnum.COMPANY_DEV.getId(), businessLicenseFile);
+        String icon = uploadFileService.uploadIcon(iconFile);
+        String businessLicense = uploadFileService.uploadDocumentation(businessLicenseFile, UserTypeEnum.COMPANY_DEV);
         if (icon == null) {
             icon = "company.jpg";
         }

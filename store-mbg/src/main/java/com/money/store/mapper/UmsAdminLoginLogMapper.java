@@ -1,30 +1,16 @@
 package com.money.store.mapper;
 
 import com.money.store.model.UmsAdminLoginLog;
-import com.money.store.model.UmsAdminLoginLogExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
-public interface UmsAdminLoginLogMapper {
-    int countByExample(UmsAdminLoginLogExample example);
+/**
+ * <p>
+ * 管理员登录日志 Mapper 接口
+ * </p>
+ *
+ * @author Money
+ * @since 2020-11-17
+ */
+public interface UmsAdminLoginLogMapper extends BaseMapper<UmsAdminLoginLog> {
 
-    int deleteByExample(UmsAdminLoginLogExample example);
-
-    int deleteByPrimaryKey(Long id);
-
-    int insert(UmsAdminLoginLog record);
-
-    int insertSelective(UmsAdminLoginLog record);
-
-    List<UmsAdminLoginLog> selectByExample(UmsAdminLoginLogExample example);
-
-    UmsAdminLoginLog selectByPrimaryKey(Long id);
-
-    int updateByExampleSelective(@Param("record") UmsAdminLoginLog record, @Param("example") UmsAdminLoginLogExample example);
-
-    int updateByExample(@Param("record") UmsAdminLoginLog record, @Param("example") UmsAdminLoginLogExample example);
-
-    int updateByPrimaryKeySelective(UmsAdminLoginLog record);
-
-    int updateByPrimaryKey(UmsAdminLoginLog record);
 }

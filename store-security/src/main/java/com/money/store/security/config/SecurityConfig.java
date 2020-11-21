@@ -20,6 +20,8 @@ import org.springframework.security.config.annotation.web.configurers.Expression
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 
 
 /**
@@ -125,6 +127,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public JwtTokenUtil jwtTokenUtil() {
         return new JwtTokenUtil();
     }
+
+    /**
+     * 配置地址栏不能识别 // 的情况
+     * @return
+     */
+    @Bean
+    public HttpFirewall allowUrlEncodedSlashHttpFirewall() {
+        StrictHttpFirewall firewall = new StrictHttpFirewall();
+        //此处可添加别的规则,目前只设置 允许双 //
+        firewall.setAllowUrlEncodedDoubleSlash(true);
+        return firewall;
+    }
+
 }
 
 

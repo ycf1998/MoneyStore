@@ -1,14 +1,34 @@
 package com.money.store.model;
 
-import io.swagger.annotations.ApiModelProperty;
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
+import java.io.Serializable;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+/**
+ * <p>
+ * 用户统计信息
+ * </p>
+ *
+ * @author Money
+ * @since 2020-11-17
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@ApiModel(value="UmsUserStatisticsInfo对象", description="用户统计信息")
 public class UmsUserStatisticsInfo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
-    private Long userId;
+    private String user;
 
     @ApiModelProperty(value = "下载量")
     private String downloadAmount;
@@ -38,7 +58,10 @@ public class UmsUserStatisticsInfo implements Serializable {
     private Integer collectTopicCount;
 
     @ApiModelProperty(value = "最后一次下载时间")
-    private Date recentDownloadTime;
+    private LocalDateTime recentDownloadTime;
+
+    @ApiModelProperty(value = "申请应用上架次数")
+    private Integer applyAppCount;
 
     @ApiModelProperty(value = "发布的App总量（包括下架）")
     private Integer appCount;
@@ -53,171 +76,7 @@ public class UmsUserStatisticsInfo implements Serializable {
     private Integer devLoginCount;
 
     @ApiModelProperty(value = "最后申请上架时间")
-    private Date recentPublishTime;
+    private LocalDateTime recentPublishTime;
 
-    private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public String getDownloadAmount() {
-        return downloadAmount;
-    }
-
-    public void setDownloadAmount(String downloadAmount) {
-        this.downloadAmount = downloadAmount == null ? null : downloadAmount.trim();
-    }
-
-    public BigDecimal getConsumeAmount() {
-        return consumeAmount;
-    }
-
-    public void setConsumeAmount(BigDecimal consumeAmount) {
-        this.consumeAmount = consumeAmount;
-    }
-
-    public Integer getOrderCount() {
-        return orderCount;
-    }
-
-    public void setOrderCount(Integer orderCount) {
-        this.orderCount = orderCount;
-    }
-
-    public Integer getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(Integer commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public Integer getLoginCount() {
-        return loginCount;
-    }
-
-    public void setLoginCount(Integer loginCount) {
-        this.loginCount = loginCount;
-    }
-
-    public Integer getAttendCount() {
-        return attendCount;
-    }
-
-    public void setAttendCount(Integer attendCount) {
-        this.attendCount = attendCount;
-    }
-
-    public Integer getFansCount() {
-        return fansCount;
-    }
-
-    public void setFansCount(Integer fansCount) {
-        this.fansCount = fansCount;
-    }
-
-    public Integer getCollectAppCount() {
-        return collectAppCount;
-    }
-
-    public void setCollectAppCount(Integer collectAppCount) {
-        this.collectAppCount = collectAppCount;
-    }
-
-    public Integer getCollectTopicCount() {
-        return collectTopicCount;
-    }
-
-    public void setCollectTopicCount(Integer collectTopicCount) {
-        this.collectTopicCount = collectTopicCount;
-    }
-
-    public Date getRecentDownloadTime() {
-        return recentDownloadTime;
-    }
-
-    public void setRecentDownloadTime(Date recentDownloadTime) {
-        this.recentDownloadTime = recentDownloadTime;
-    }
-
-    public Integer getAppCount() {
-        return appCount;
-    }
-
-    public void setAppCount(Integer appCount) {
-        this.appCount = appCount;
-    }
-
-    public Integer getOnSaleAppCount() {
-        return onSaleAppCount;
-    }
-
-    public void setOnSaleAppCount(Integer onSaleAppCount) {
-        this.onSaleAppCount = onSaleAppCount;
-    }
-
-    public Integer getDevDownloadedCount() {
-        return devDownloadedCount;
-    }
-
-    public void setDevDownloadedCount(Integer devDownloadedCount) {
-        this.devDownloadedCount = devDownloadedCount;
-    }
-
-    public Integer getDevLoginCount() {
-        return devLoginCount;
-    }
-
-    public void setDevLoginCount(Integer devLoginCount) {
-        this.devLoginCount = devLoginCount;
-    }
-
-    public Date getRecentPublishTime() {
-        return recentPublishTime;
-    }
-
-    public void setRecentPublishTime(Date recentPublishTime) {
-        this.recentPublishTime = recentPublishTime;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", userId=").append(userId);
-        sb.append(", downloadAmount=").append(downloadAmount);
-        sb.append(", consumeAmount=").append(consumeAmount);
-        sb.append(", orderCount=").append(orderCount);
-        sb.append(", commentCount=").append(commentCount);
-        sb.append(", loginCount=").append(loginCount);
-        sb.append(", attendCount=").append(attendCount);
-        sb.append(", fansCount=").append(fansCount);
-        sb.append(", collectAppCount=").append(collectAppCount);
-        sb.append(", collectTopicCount=").append(collectTopicCount);
-        sb.append(", recentDownloadTime=").append(recentDownloadTime);
-        sb.append(", appCount=").append(appCount);
-        sb.append(", onSaleAppCount=").append(onSaleAppCount);
-        sb.append(", devDownloadedCount=").append(devDownloadedCount);
-        sb.append(", devLoginCount=").append(devLoginCount);
-        sb.append(", recentPublishTime=").append(recentPublishTime);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

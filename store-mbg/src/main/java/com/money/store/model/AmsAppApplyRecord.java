@@ -1,24 +1,48 @@
 package com.money.store.model;
 
-import io.swagger.annotations.ApiModelProperty;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import java.time.LocalDateTime;
 import java.io.Serializable;
-import java.util.Date;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
+/**
+ * <p>
+ * App应用上架申请/审核记录
+ * </p>
+ *
+ * @author Money
+ * @since 2020-11-17
+ */
+@Data
+@EqualsAndHashCode(callSuper = false)
+@ApiModel(value="AmsAppApplyRecord对象", description="App应用上架申请/审核记录")
 public class AmsAppApplyRecord implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @TableId(value = "id", type = IdType.AUTO)
     private Long id;
 
     private Long appId;
 
-    private Long devId;
+    @ApiModelProperty(value = "app名称")
+    private String appName;
+
+    @ApiModelProperty(value = "开发者")
+    private String dev;
 
     @ApiModelProperty(value = "申请时间")
-    private Date applyDate;
+    private LocalDateTime applyDate;
 
     @ApiModelProperty(value = "审核员")
     private Long auditUser;
 
     @ApiModelProperty(value = "审核时间")
-    private Date auditDate;
+    private LocalDateTime auditDate;
 
     @ApiModelProperty(value = "结果")
     private Integer result;
@@ -26,88 +50,5 @@ public class AmsAppApplyRecord implements Serializable {
     @ApiModelProperty(value = "审核描述")
     private String description;
 
-    private static final long serialVersionUID = 1L;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getAppId() {
-        return appId;
-    }
-
-    public void setAppId(Long appId) {
-        this.appId = appId;
-    }
-
-    public Long getDevId() {
-        return devId;
-    }
-
-    public void setDevId(Long devId) {
-        this.devId = devId;
-    }
-
-    public Date getApplyDate() {
-        return applyDate;
-    }
-
-    public void setApplyDate(Date applyDate) {
-        this.applyDate = applyDate;
-    }
-
-    public Long getAuditUser() {
-        return auditUser;
-    }
-
-    public void setAuditUser(Long auditUser) {
-        this.auditUser = auditUser;
-    }
-
-    public Date getAuditDate() {
-        return auditDate;
-    }
-
-    public void setAuditDate(Date auditDate) {
-        this.auditDate = auditDate;
-    }
-
-    public Integer getResult() {
-        return result;
-    }
-
-    public void setResult(Integer result) {
-        this.result = result;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", appId=").append(appId);
-        sb.append(", devId=").append(devId);
-        sb.append(", applyDate=").append(applyDate);
-        sb.append(", auditUser=").append(auditUser);
-        sb.append(", auditDate=").append(auditDate);
-        sb.append(", result=").append(result);
-        sb.append(", description=").append(description);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
 }

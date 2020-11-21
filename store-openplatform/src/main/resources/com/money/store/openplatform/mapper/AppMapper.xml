@@ -1,0 +1,345 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.money.store.openplatform.dao.AppMapper">
+    <resultMap id="BaseResultMap" type="com.money.store.model.AmsApp">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="dev" jdbcType="VARCHAR" property="dev" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="size" jdbcType="VARCHAR" property="size" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="install_file" jdbcType="VARCHAR" property="installFile" />
+        <result column="package_name" jdbcType="VARCHAR" property="packageName" />
+        <result column="language" jdbcType="VARCHAR" property="language" />
+        <result column="screen_size" jdbcType="VARCHAR" property="screenSize" />
+        <result column="expenses" jdbcType="VARCHAR" property="expenses" />
+        <result column="price" jdbcType="DECIMAL" property="price" />
+        <result column="score" jdbcType="DECIMAL" property="score" />
+        <result column="advertisement" jdbcType="VARCHAR" property="advertisement" />
+        <result column="status" jdbcType="INTEGER" property="status" />
+        <result column="downloads" jdbcType="VARCHAR" property="downloads" />
+        <result column="logo" jdbcType="VARCHAR" property="logo" />
+        <result column="copyright" jdbcType="VARCHAR" property="copyright" />
+        <result column="label" jdbcType="VARCHAR" property="label" />
+        <result column="keywords" jdbcType="VARCHAR" property="keywords" />
+        <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+        <result column="github" jdbcType="VARCHAR" property="github" />
+        <result column="link" jdbcType="VARCHAR" property="link" />
+        <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+        <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+        <result column="on_sale_date" jdbcType="TIMESTAMP" property="onSaleDate" />
+        <result column="off_sale_date" jdbcType="TIMESTAMP" property="offSaleDate" />
+        <result column="category_level1" jdbcType="INTEGER" property="categoryLevel1" />
+        <result column="category_level2" jdbcType="INTEGER" property="categoryLevel2" />
+        <result column="category_level3" jdbcType="INTEGER" property="categoryLevel3" />
+        <result column="now_version" jdbcType="BIGINT" property="nowVersion" />
+        <result column="apply_record_id" jdbcType="BIGINT" property="applyRecordId" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, dev, name, size, type, install_file, package_name, language, screen_size, expenses,
+    price, score, advertisement, status, downloads, logo, copyright, label, keywords,
+    remarks, github, link, create_date, update_date, on_sale_date, off_sale_date, category_level1,
+    category_level2, category_level3, now_version, apply_record_id
+  </sql>
+
+    <insert id="insert" parameterType="com.money.store.model.AmsApp"
+            keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into ams_app
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="dev != null">
+                dev,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="size != null">
+                size,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="installFile != null">
+                install_file,
+            </if>
+            <if test="packageName != null">
+                package_name,
+            </if>
+            <if test="language != null">
+                language,
+            </if>
+            <if test="screenSize != null">
+                screen_size,
+            </if>
+            <if test="expenses != null">
+                expenses,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="score != null">
+                score,
+            </if>
+            <if test="advertisement != null">
+                advertisement,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="downloads != null">
+                downloads,
+            </if>
+            <if test="logo != null">
+                logo,
+            </if>
+            <if test="copyright != null">
+                copyright,
+            </if>
+            <if test="label != null">
+                label,
+            </if>
+            <if test="keywords != null">
+                keywords,
+            </if>
+            <if test="remarks != null">
+                remarks,
+            </if>
+            <if test="github != null">
+                github,
+            </if>
+            <if test="link != null">
+                link,
+            </if>
+            <if test="createDate != null">
+                create_date,
+            </if>
+            <if test="updateDate != null">
+                update_date,
+            </if>
+            <if test="onSaleDate != null">
+                on_sale_date,
+            </if>
+            <if test="offSaleDate != null">
+                off_sale_date,
+            </if>
+            <if test="categoryLevel1 != null">
+                category_level1,
+            </if>
+            <if test="categoryLevel2 != null">
+                category_level2,
+            </if>
+            <if test="categoryLevel3 != null">
+                category_level3,
+            </if>
+            <if test="nowVersion != null">
+                now_version,
+            </if>
+            <if test="applyRecordId != null">
+                apply_record_id,
+            </if>
+            <if test="detailDesc != null">
+                detail_desc,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="dev != null">
+                #{dev,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                #{size,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="installFile != null">
+                #{installFile,jdbcType=VARCHAR},
+            </if>
+            <if test="packageName != null">
+                #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="language != null">
+                #{language,jdbcType=VARCHAR},
+            </if>
+            <if test="screenSize != null">
+                #{screenSize,jdbcType=VARCHAR},
+            </if>
+            <if test="expenses != null">
+                #{expenses,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="score != null">
+                #{score,jdbcType=DECIMAL},
+            </if>
+            <if test="advertisement != null">
+                #{advertisement,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="downloads != null">
+                #{downloads,jdbcType=VARCHAR},
+            </if>
+            <if test="logo != null">
+                #{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="copyright != null">
+                #{copyright,jdbcType=VARCHAR},
+            </if>
+            <if test="label != null">
+                #{label,jdbcType=VARCHAR},
+            </if>
+            <if test="keywords != null">
+                #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="github != null">
+                #{github,jdbcType=VARCHAR},
+            </if>
+            <if test="link != null">
+                #{link,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="onSaleDate != null">
+                #{onSaleDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="offSaleDate != null">
+                #{offSaleDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="categoryLevel1 != null">
+                #{categoryLevel1,jdbcType=INTEGER},
+            </if>
+            <if test="categoryLevel2 != null">
+                #{categoryLevel2,jdbcType=INTEGER},
+            </if>
+            <if test="categoryLevel3 != null">
+                #{categoryLevel3,jdbcType=INTEGER},
+            </if>
+            <if test="nowVersion != null">
+                #{nowVersion,jdbcType=BIGINT},
+            </if>
+            <if test="applyRecordId != null">
+                #{applyRecordId,jdbcType=BIGINT},
+            </if>
+            <if test="detailDesc != null">
+                #{detailDesc,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.money.store.model.AmsApp">
+        update ams_app
+        <set>
+            <if test="dev != null">
+                dev = #{dev,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                size = #{size,jdbcType=VARCHAR},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=INTEGER},
+            </if>
+            <if test="installFile != null">
+                install_file = #{installFile,jdbcType=VARCHAR},
+            </if>
+            <if test="packageName != null">
+                package_name = #{packageName,jdbcType=VARCHAR},
+            </if>
+            <if test="language != null">
+                language = #{language,jdbcType=VARCHAR},
+            </if>
+            <if test="screenSize != null">
+                screen_size = #{screenSize,jdbcType=VARCHAR},
+            </if>
+            <if test="expenses != null">
+                expenses = #{expenses,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=DECIMAL},
+            </if>
+            <if test="score != null">
+                score = #{score,jdbcType=DECIMAL},
+            </if>
+            <if test="advertisement != null">
+                advertisement = #{advertisement,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="downloads != null">
+                downloads = #{downloads,jdbcType=VARCHAR},
+            </if>
+            <if test="logo != null">
+                logo = #{logo,jdbcType=VARCHAR},
+            </if>
+            <if test="copyright != null">
+                copyright = #{copyright,jdbcType=VARCHAR},
+            </if>
+            <if test="label != null">
+                label = #{label,jdbcType=VARCHAR},
+            </if>
+            <if test="keywords != null">
+                keywords = #{keywords,jdbcType=VARCHAR},
+            </if>
+            <if test="remarks != null">
+                remarks = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="github != null">
+                github = #{github,jdbcType=VARCHAR},
+            </if>
+            <if test="link != null">
+                link = #{link,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                create_date = #{createDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateDate != null">
+                update_date = #{updateDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="onSaleDate != null">
+                on_sale_date = #{onSaleDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="offSaleDate != null">
+                off_sale_date = #{offSaleDate,jdbcType=TIMESTAMP},
+            </if>
+            <if test="categoryLevel1 != null">
+                category_level1 = #{categoryLevel1,jdbcType=INTEGER},
+            </if>
+            <if test="categoryLevel2 != null">
+                category_level2 = #{categoryLevel2,jdbcType=INTEGER},
+            </if>
+            <if test="categoryLevel3 != null">
+                category_level3 = #{categoryLevel3,jdbcType=INTEGER},
+            </if>
+            <if test="nowVersion != null">
+                now_version = #{nowVersion,jdbcType=BIGINT},
+            </if>
+            <if test="applyRecordId != null">
+                apply_record_id = #{applyRecordId,jdbcType=BIGINT},
+            </if>
+            <if test="detailDesc != null">
+                detail_desc = #{detailDesc,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+</mapper>

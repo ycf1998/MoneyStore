@@ -2,7 +2,7 @@ package com.money.store.openplatform.service.impl;
 
 import com.money.store.mapper.UmsUserMapper;
 import com.money.store.model.UmsUser;
-import com.money.store.openplatform.service.RedisService;
+import com.money.store.common.service.RedisService;
 import com.money.store.openplatform.service.UmsUserCacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

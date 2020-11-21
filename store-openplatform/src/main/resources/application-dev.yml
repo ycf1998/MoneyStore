@@ -59,4 +59,4 @@ spring:
 money:
   name: "MoneyStore"
   baseUrl: "http://127.0.0.1:8081/"
-  basePath: "F:\\uploads\\user\\"
+  basePath: "F:\\uploads\\store\\"
