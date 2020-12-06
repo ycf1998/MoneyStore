@@ -7,8 +7,6 @@ import com.money.store.openplatform.dto.AppQueryParams;
 import com.money.store.openplatform.dto.ApplyAppParams;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
-
 /**
  * @program: store
  * @description: 应用Service
@@ -39,5 +37,5 @@ public interface AmsAppService {
      * @param page
      * @return
      */
-    List<AmsApp> appList(AppQueryParams appQueryParams, Page<AmsApp> page);
+    Page<AmsApp> appList(AppQueryParams appQueryParams, Page<AmsApp> page);
 }

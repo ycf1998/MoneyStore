@@ -26,7 +26,7 @@ import java.util.Map;
  */
 @Controller
 @Api(value="用户登录信息管理", tags="用户登录管理")
-@RequestMapping("/sso")
+@RequestMapping("/dev")
 public class UmsUserController {
 
     @Autowired

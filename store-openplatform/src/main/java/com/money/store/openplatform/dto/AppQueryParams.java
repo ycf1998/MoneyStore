@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * @program: store
@@ -43,6 +42,12 @@ public class AppQueryParams {
     @ApiModelProperty(value = "下架时间")
     private LocalDateTime offSaleTime;
 
-    @ApiModelProperty(value = "分类(xx,xx,xx)")
-    private List<Integer> category;
+    @ApiModelProperty(value = "一级分类")
+    private Integer category_1;
+
+    @ApiModelProperty(value = "二级分类")
+    private Integer category_2;
+
+    @ApiModelProperty(value = "三级分类")
+    private Integer category_3;
 }

@@ -32,7 +32,7 @@ import java.util.Map;
  */
 @Api(value="个人信息业务处理", tags="个人信息业务处理")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/dev")
 public class UmsProfileController {
 
     @Autowired
@@ -44,7 +44,6 @@ public class UmsProfileController {
     @GetMapping(value = "/loginLog")
     @ResponseBody
     public CommonResult loginLog(Principal principal) {
-        PageInfo<AppInfo> pageInfo = new PageInfo<AppInfo>();
         String username = principal.getName();
         List<UmsUserLoginLog> loginLog = umsUserService.getLoginLog(username);
         return CommonResult.success(loginLog);

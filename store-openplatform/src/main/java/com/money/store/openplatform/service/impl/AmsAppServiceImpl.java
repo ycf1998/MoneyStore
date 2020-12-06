@@ -2,6 +2,7 @@ package com.money.store.openplatform.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -120,10 +121,42 @@ public class AmsAppServiceImpl implements AmsAppService {
     }
 
     @Override
-    public List<AmsApp> appList(AppQueryParams appQueryParams, Page<AmsApp> page) {
+    public Page<AmsApp> appList(AppQueryParams appQueryParams, Page<AmsApp> page) {
         QueryWrapper<AmsApp> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("username", appQueryParams.getDev());
-        amsAppMapper.selectPage(page, queryWrapper);
-        return null;
+        queryWrapper.eq("dev", appQueryParams.getDev());
+        if (StrUtil.isNotBlank(appQueryParams.getName())) {
+            queryWrapper.like("name", appQueryParams.getName());
+        }
+        if (StrUtil.isNotBlank(appQueryParams.getType())) {
+            queryWrapper.eq("type", appQueryParams.getType());
+        }
+        if (appQueryParams.getStatus() != null) {
+            queryWrapper.eq("status", appQueryParams.getStatus());
+        }
+        if (appQueryParams.getCreateTime() != null) {
+            queryWrapper.eq("create_time", appQueryParams.getCreateTime());
+        }
+        if (StrUtil.isNotBlank(appQueryParams.getExpense())) {
+            queryWrapper.eq("expense", appQueryParams.getExpense());
+        }
+        if (StrUtil.isNotBlank(appQueryParams.getLanguage())) {
+            queryWrapper.eq("language", appQueryParams.getLanguage());
+        }
+        if (appQueryParams.getOnSaleTime() != null) {
+            queryWrapper.eq("on_sale_date", appQueryParams.getOnSaleTime());
+        }
+        if (appQueryParams.getOffSaleTime() != null) {
+            queryWrapper.eq("off_sale_date", appQueryParams.getOffSaleTime());
+        }
+        if (appQueryParams.getCategory_1() != null) {
+            queryWrapper.eq("category_level1", appQueryParams.getCategory_1());
+        }
+        if (appQueryParams.getCategory_2() != null) {
+            queryWrapper.eq("category_level2", appQueryParams.getCategory_2());
+        }
+        if (appQueryParams.getCategory_3() != null) {
+            queryWrapper.eq("category_level3", appQueryParams.getCategory_3());
+        }
+        return amsAppMapper.selectPage(page, queryWrapper);
     }
 }

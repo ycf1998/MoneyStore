@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,7 +20,6 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +30,7 @@ import java.util.Map;
  * @create: 2020/04/07 15:50
  */
 @RestController
+@RequestMapping("/devAms")
 public class AmsAppController {
 
     @Autowired
@@ -65,7 +66,7 @@ public class AmsAppController {
     @GetMapping("/app")
     public CommonResult getAppList(Principal principal, AppQueryParams appQueryParams, Page<AmsApp> page) {
         appQueryParams.setDev(principal.getName());
-        return CommonResult.success(new Date());
+        return CommonResult.success(amsAppService.appList(appQueryParams, page));
     }
 
     @ApiOperation(value = "获取应用分类")

@@ -69,10 +69,10 @@ secure:
             - /actuator/**
             - /druid/**
             - /uploads/**
-            - /sso/login
+            - /dev/login
             - /platform/**
             - /mail/**
-            - /apk
+            - /devAms/apk
 
 # 自定义redis key
 redis:
@@ -82,4 +82,3 @@ redis:
     expire:
         authCode: 90 # 验证码超期时间s
         common: 86400 # 24小时
-
