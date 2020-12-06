@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * App版本更新申请/审核表记录 Mapper 接口
  * </p>
  *
- * @author Money
- * @since 2020-11-17
+ * @author money
+ * @since 2020-12-06
  */
 public interface AmsVersionApplyRecordMapper extends BaseMapper<AmsVersionApplyRecord> {
 

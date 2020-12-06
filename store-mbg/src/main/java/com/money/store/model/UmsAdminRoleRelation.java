@@ -13,8 +13,8 @@ import lombok.EqualsAndHashCode;
  * 后台用户和角色关系表，用户与角色是多对多关系
  * </p>
  *
- * @author Money
- * @since 2020-11-17
+ * @author money
+ * @since 2020-12-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

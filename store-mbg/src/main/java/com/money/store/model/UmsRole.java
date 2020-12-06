@@ -3,6 +3,8 @@ package com.money.store.model;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,8 +16,8 @@ import lombok.EqualsAndHashCode;
  * 平台管理员角色
  * </p>
  *
- * @author Money
- * @since 2020-11-17
+ * @author money
+ * @since 2020-12-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -37,6 +39,7 @@ public class UmsRole implements Serializable {
     private Integer adminCount;
 
     @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "修改时间")

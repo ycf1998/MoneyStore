@@ -91,7 +91,7 @@ public class AmsAppServiceImpl implements AmsAppService {
         amsApp.setCategoryLevel3(applyAppParams.getCategory().get(2));
         amsApp.setLogo(logo);
         amsApp.setCopyright(copyright);
-        amsApp.setCreateDate(now);
+        amsApp.setCreateTime(now);
         amsApp.setStatus(AppStatusEnum.UNAUDITED.getId());
         amsApp.setType(1);
         BeanUtil.copyProperties(amsApp, appVersion);
@@ -104,7 +104,7 @@ public class AmsAppServiceImpl implements AmsAppService {
         amsAppVersionMapper.insert(appVersion);
         // 保存应用申请表
         record.setAppId(amsApp.getId());
-        record.setApplyDate(now);
+        record.setApplyTime(now);
         record.setDev(applyAppParams.getDev());
         record.setAppName(applyAppParams.getName());
         amsAppApplyRecordMapper.insert(record);

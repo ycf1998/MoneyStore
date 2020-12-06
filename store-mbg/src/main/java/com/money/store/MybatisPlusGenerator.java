@@ -1,17 +1,17 @@
 package com.money.store;
 
 
+import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
-import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.po.TableFill;
+import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -41,74 +41,57 @@ public class MybatisPlusGenerator {
     }
 
     public static void main(String[] args) {
-        // 代码生成器
+        // 需要构建一个 代码自动生成器 对象
         AutoGenerator mpg = new AutoGenerator();
-
-        // 全局配置
+        // 配置策略
+        // 1、全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
         gc.setOutputDir(projectPath + "/store-mbg/src/main/java");
-        gc.setAuthor("Money");
+        gc.setAuthor("money");
         gc.setOpen(false);
+        gc.setFileOverride(true); // 是否覆盖
+        gc.setServiceName("%sService"); // 去Service的I前缀
+        gc.setIdType(IdType.ASSIGN_ID);
+        gc.setDateType(DateType.TIME_PACK); // 使用JDK8的LocalDateTime
         gc.setSwagger2(true);
-        gc.setFileOverride(true);
         mpg.setGlobalConfig(gc);
-
-        // 数据源配置
+        //2、设置数据源
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/appstoredb?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2b8&useSSL=false");
-        dsc.setDriverName("com.mysql.jdbc.Driver");
+        dsc.setUrl("jdbc:mysql://localhost:3306/appstoredb? useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8");
+        dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
         dsc.setPassword("root");
+        dsc.setDbType(DbType.MYSQL);
         mpg.setDataSource(dsc);
-
-        // 包配置
+        //3、包的配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("store");
-        pc.setParent("com.money");
+        pc.setParent("com.money.store");
         pc.setEntity("model");
+        pc.setMapper("mapper");
+        //pc.setService("service");
+        //pc.setController("controller");
         mpg.setPackageInfo(pc);
-
-        // 自定义配置
-        InjectionConfig cfg = new InjectionConfig() {
-            @Override
-            public void initMap() {
-                // to do nothing
-            }
-        };
-
-        // 如果模板引擎是 freemarker
-        String templatePath = "/templates/mapper.xml.ftl";
-
-        // 自定义输出配置
-        List<FileOutConfig> focList = new ArrayList<>();
-        // 自定义配置会被优先输出
-        focList.add(new FileOutConfig(templatePath) {
-            @Override
-            public String outputFile(TableInfo tableInfo) {
-                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
-                        + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-            }
-        });
-
-        cfg.setFileOutConfigList(focList);
-        mpg.setCfg(cfg);
-
-        // 配置模板
-        TemplateConfig templateConfig = new TemplateConfig();
-        templateConfig.setXml(null);
-        mpg.setTemplate(templateConfig);
-
-        // 策略配置
+        //4、策略配置
         StrategyConfig strategy = new StrategyConfig();
+        //strategy.setInclude("ams_app"); // 设置要映射的表名
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setEntityLombokModel(true);
-//        strategy.setSuperEntityColumns("id");
-//        strategy.setInclude(scanner("表名，多个英文逗号分割").split(","));
+        strategy.setEntityLombokModel(true); // 自动lombok；
+        strategy.setLogicDeleteFieldName("deleted");
+        // 自动填充配置
+        TableFill gmtCreate = new TableFill("create_time", FieldFill.INSERT);
+        TableFill gmtModified = new TableFill("update_time",
+                FieldFill.INSERT_UPDATE);
+        ArrayList<TableFill> tableFills = new ArrayList<>();
+        tableFills.add(gmtCreate);
+        tableFills.add(gmtModified);
+        strategy.setTableFillList(tableFills);
+        // 乐观锁
+//        strategy.setVersionFieldName("version");
+//        strategy.setRestControllerStyle(true);
+//        strategy.setControllerMappingHyphenStyle(true); //localhost:8080/hello_id_2
         mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
-        mpg.execute();
+        mpg.execute(); //执行
     }
 }

@@ -1,6 +1,5 @@
 package com.money.store.openplatform.controller;
 
-import com.github.pagehelper.PageInfo;
 import com.money.store.common.api.CommonResult;
 import com.money.store.common.constant.UserTypeEnum;
 import com.money.store.model.UmsCompanyDev;
@@ -12,7 +11,6 @@ import com.money.store.openplatform.dto.UpdateUserPasswordParam;
 import com.money.store.openplatform.service.UmsUserService;
 import com.money.store.openplatform.service.UploadFileService;
 import com.money.store.openplatform.util.file.UploadUtil;
-import com.sun.deploy.ui.AppInfo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

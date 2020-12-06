@@ -1,6 +1,10 @@
 package com.money.store.model;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,8 +16,8 @@ import lombok.EqualsAndHashCode;
  * 
  * </p>
  *
- * @author Money
- * @since 2020-11-17
+ * @author money
+ * @since 2020-12-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -22,6 +26,7 @@ public class AmsAppTemporary implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty(value = "开发者")
@@ -39,7 +44,12 @@ public class AmsAppTemporary implements Serializable {
     @ApiModelProperty(value = "版本号")
     private String versionCode;
 
+    @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
+
+    @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
 
 }

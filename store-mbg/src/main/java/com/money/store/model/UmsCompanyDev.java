@@ -13,8 +13,8 @@ import lombok.EqualsAndHashCode;
  * 公司类型开发者
  * </p>
  *
- * @author Money
- * @since 2020-11-17
+ * @author money
+ * @since 2020-12-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

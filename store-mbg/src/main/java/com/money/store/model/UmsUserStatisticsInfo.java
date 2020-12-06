@@ -15,8 +15,8 @@ import lombok.EqualsAndHashCode;
  * 用户统计信息
  * </p>
  *
- * @author Money
- * @since 2020-11-17
+ * @author money
+ * @since 2020-12-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

@@ -1,8 +1,8 @@
 package com.money.store.model;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,8 +14,8 @@ import lombok.EqualsAndHashCode;
  * App应用上架申请/审核记录
  * </p>
  *
- * @author Money
- * @since 2020-11-17
+ * @author money
+ * @since 2020-12-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -24,7 +24,7 @@ public class AmsAppApplyRecord implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     private Long appId;
@@ -36,13 +36,13 @@ public class AmsAppApplyRecord implements Serializable {
     private String dev;
 
     @ApiModelProperty(value = "申请时间")
-    private LocalDateTime applyDate;
+    private LocalDateTime applyTime;
 
     @ApiModelProperty(value = "审核员")
     private Long auditUser;
 
     @ApiModelProperty(value = "审核时间")
-    private LocalDateTime auditDate;
+    private LocalDateTime auditTime;
 
     @ApiModelProperty(value = "结果")
     private Integer result;

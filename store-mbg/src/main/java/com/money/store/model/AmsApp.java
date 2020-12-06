@@ -1,23 +1,24 @@
 package com.money.store.model;
 
+import java.math.BigDecimal;
 import com.baomidou.mybatisplus.annotation.IdType;
+import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * <p>
  * App应用信息
  * </p>
  *
- * @author Money
- * @since 2020-11-17
+ * @author money
+ * @since 2020-12-06
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -26,7 +27,7 @@ public class AmsApp implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "id", type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.ASSIGN_ID)
     private Long id;
 
     @ApiModelProperty(value = "开发者")
@@ -95,11 +96,13 @@ public class AmsApp implements Serializable {
     @ApiModelProperty(value = "官方链接")
     private String link;
 
-    @ApiModelProperty(value = "申请审核时间")
-    private LocalDateTime createDate;
+    @ApiModelProperty(value = "创建事件/申请审核时间")
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
 
-    @ApiModelProperty(value = "更新日期")
-    private LocalDateTime updateDate;
+    @ApiModelProperty(value = "更新时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "上架时间")
     private LocalDateTime onSaleDate;
